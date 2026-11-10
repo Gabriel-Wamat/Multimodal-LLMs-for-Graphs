@@ -1,0 +1,20 @@
+{
+  "experiment": "mof13b-pilot50-v1",
+  "model_id": "MMVP/MoF_Models",
+  "model_revision": "311d98dc39e99b7337a838e7435602e4165c7916",
+  "code_repository": "https://github.com/tsb0601/MMVP.git",
+  "code_revision": "763500597e65c3446f09047837ceda76f4e264bf",
+  "clip_id": "openai/clip-vit-large-patch14-336",
+  "clip_revision": "ce19dc912ca5cd21c8a653c79e251e808ccabcd1",
+  "dino_revision": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+  "resolution": 336,
+  "dtype": "float16",
+  "quantization": null,
+  "conversation": "llava_v1",
+  "seed": 20261102,
+  "do_sample": false,
+  "max_new_tokens": 192,
+  "image_preprocessing": "RGB; pad square using CLIP mean; native CLIP processor at 336",
+  "prompt_language": "pt-BR",
+  "split": "data/manifests/pilot50_v1/split.json"
+}

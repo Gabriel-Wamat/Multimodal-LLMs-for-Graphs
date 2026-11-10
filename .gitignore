@@ -1,0 +1,50 @@
+# Environments and generated dependencies
+.venv*/
+.cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.ruff_cache/
+.pytest_cache/
+build/
+dist/
+.DS_Store
+
+# Credentials and machine-specific settings
+.env
+.env.*
+!.env.example
+*.local.json
+*.local.toml
+*.pem
+*.key
+
+# Runtime data, private records and immutable local archives
+work/
+logs/
+/dados_projeto_multi_modais/*
+!/dados_projeto_multi_modais/README.md
+/data/manifests/*
+!/data/manifests/README.md
+/data/processed/*
+!/data/processed/README.md
+/experiments/*
+!/experiments/README.md
+/results/*
+!/results/README.md
+!/results/published/
+/docs/planejamento/
+
+# Checkpoints and large distribution archives
+*.pt
+*.pth
+*.safetensors
+*.bin
+*.ckpt
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.lock.tmp
+runner.lock

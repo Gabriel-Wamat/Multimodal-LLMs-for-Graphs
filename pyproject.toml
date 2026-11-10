@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multimodal-llms-for-graphs"
+version = "0.1.0"
+description = "Reproducible chart question answering with multimodal LLMs and CLIP/DINO visual representations"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+  "numpy>=1.26,<3",
+  "Pillow>=10.4,<12",
+  "matplotlib>=3.9,<3.11",
+  "scipy>=1.13,<2",
+]
+
+[project.optional-dependencies]
+notebooks = ["ipykernel>=6.29,<7", "nbformat>=5.10,<6", "nbclient>=0.10,<1", "nbconvert>=7.16,<8"]
+dev = ["ruff>=0.9,<1", "nbformat>=5.10,<6"]
+
+[project.urls]
+Repository = "https://github.com/Gabriel-Wamat/Multimodal-LLMs-for-Graphs"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src", "src.*"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E9", "F"]
+
+[tool.uv]
+package = true

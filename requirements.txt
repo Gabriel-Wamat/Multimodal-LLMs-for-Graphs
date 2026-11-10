@@ -1,0 +1,2 @@
+# Portable analysis/notebook environment. GPU profiles are isolated in configs/.
+-e .[notebooks,dev]

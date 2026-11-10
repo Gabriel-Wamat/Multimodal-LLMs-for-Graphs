@@ -1,0 +1,13 @@
+# Ambiente separado do I-MoF legado; Linux x86_64 / Python 3.10.
+torch==2.6.0
+torchvision==0.21.0
+transformers==4.56.2
+accelerate==1.10.1
+huggingface-hub==0.34.4
+safetensors==0.6.2
+tokenizers==0.22.1
+numpy==1.26.4
+Pillow==11.3.0
+scipy==1.15.3
+sentencepiece==0.2.1
+protobuf==6.32.1

@@ -1,0 +1,64 @@
+{
+  "version": "frozen-models-v1",
+  "models": {
+    "llava": {
+      "repo": "llava-hf/llava-1.5-7b-hf",
+      "revision": "b234b804b114d9e37bb655e11cbbb5f5e971b7a9",
+      "kind": "llava",
+      "weights": "safetensors",
+      "dtype": "bfloat16"
+    },
+    "qwen": {
+      "repo": "Qwen/Qwen2-VL-2B-Instruct",
+      "revision": "895c3a49bc3fa70a340399125c650a463535e71c",
+      "kind": "qwen2_vl",
+      "weights": "safetensors",
+      "dtype": "bfloat16"
+    },
+    "clip": {
+      "repo": "openai/clip-vit-large-patch14-336",
+      "revision": "ce19dc912ca5cd21c8a653c79e251e808ccabcd1",
+      "kind": "clip",
+      "weights": "bin",
+      "dtype": "float32"
+    },
+    "dinov3": {
+      "repo": "facebook/dinov3-vitb16-pretrain-lvd1689m",
+      "revision": "5931719e67bbdb9737e363e781fb0c67687896bc",
+      "kind": "hf_local_dinov3_safetensors",
+      "architecture": "DINOv3ViTModel",
+      "weights": "local_safetensors",
+      "expected_sha256": "9a21ac3df0c63839d62612dda6f454d816c25611cc7a52966ed5a5a94921dc8b",
+      "expected_bytes": 342662192,
+      "dtype": "float32",
+      "feature_dim": 768,
+      "architecture_config": {
+        "hidden_size": 768,
+        "intermediate_size": 3072,
+        "num_hidden_layers": 12,
+        "num_attention_heads": 12,
+        "patch_size": 16,
+        "image_size": 224,
+        "num_channels": 3,
+        "num_register_tokens": 4,
+        "hidden_act": "gelu",
+        "attention_dropout": 0.0,
+        "layer_norm_eps": 1e-05,
+        "rope_theta": 100.0,
+        "query_bias": true,
+        "key_bias": false,
+        "value_bias": true,
+        "proj_bias": true,
+        "mlp_bias": true,
+        "layerscale_value": 1e-05,
+        "drop_path_rate": 0.0,
+        "use_gated_mlp": false,
+        "pos_embed_shift": null,
+        "pos_embed_jitter": null,
+        "pos_embed_rescale": 2.0
+      },
+      "architecture_config_source": "Explicit ViT-B/16 parameters from official facebookresearch/dinov3 adc254450203739c8149213a7a69d8d905b4fcfa dinov3/hub/backbones.py and Transformers 4.56.2. Not a downloaded HF config.json.",
+      "source_note": "Existing .pth file is safetensors. Full SHA-256 and byte size match official HF model.safetensors LFS metadata."
+    }
+  }
+}

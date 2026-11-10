@@ -1,0 +1,254 @@
+{
+  "schema_version": 1,
+  "evidence_snapshot_date": "2026-11-03",
+  "scope": "exploratory; historical evidence, not live scheduler state",
+  "pilot_questions": 3173,
+  "pilot_graphs": 360,
+  "scorer": "primary_binary_aliases_v2; original I-MoF strict score kept separately",
+  "official_baseline": {
+    "model": "I-MoF 13B",
+    "model_id": "MMVP/MoF_Models",
+    "revision": "311d98dc39e99b7337a838e7435602e4165c7916",
+    "strict_v1": {
+      "n": 3173,
+      "correct": 119,
+      "accuracy": 0.03750393948944217
+    },
+    "binary_aliases_posthoc": {
+      "n": 3173,
+      "correct": 311,
+      "accuracy": 0.09801449732114718
+    }
+  },
+  "pilot_results": [
+    {
+      "model": "LLaVA-1.5-7B",
+      "arm": "native",
+      "configuration": "Nativo",
+      "before": {
+        "n": 3173,
+        "correct": 282,
+        "accuracy": 0.08887488181531673
+      },
+      "after": null
+    },
+    {
+      "model": "LLaVA-1.5-7B",
+      "arm": "native_double",
+      "configuration": "Nativo duplicado",
+      "before": {
+        "n": 3173,
+        "correct": 314,
+        "accuracy": 0.09895997478726758
+      },
+      "after": null
+    },
+    {
+      "model": "LLaVA-1.5-7B",
+      "arm": "clip_double",
+      "configuration": "CLIP duplicado",
+      "before": {
+        "n": 3173,
+        "correct": 314,
+        "accuracy": 0.09895997478726758
+      },
+      "after": {
+        "n": 3173,
+        "correct": 886,
+        "accuracy": 0.27923101166088876
+      }
+    },
+    {
+      "model": "LLaVA-1.5-7B",
+      "arm": "clip_dino",
+      "configuration": "CLIP + DINOv3",
+      "before": {
+        "n": 3173,
+        "correct": 0,
+        "accuracy": 0.0
+      },
+      "after": {
+        "n": 3173,
+        "correct": 770,
+        "accuracy": 0.24267254963756696
+      }
+    },
+    {
+      "model": "Qwen2-VL-2B",
+      "arm": "clip_double",
+      "configuration": "CLIP duplicado",
+      "before": null,
+      "after": {
+        "n": 3173,
+        "correct": 771,
+        "accuracy": 0.24298770879294043
+      }
+    },
+    {
+      "model": "Qwen2-VL-2B",
+      "arm": "clip_dino",
+      "configuration": "CLIP + DINOv3",
+      "before": null,
+      "after": null,
+      "status": "final_evaluation_not_confirmed"
+    }
+  ],
+  "validation_results": [
+    {
+      "model": "llava",
+      "arm": "clip_double",
+      "epoch": 3,
+      "n": 632,
+      "accuracy": 0.28955696202531644,
+      "loss": 0.6579551338040514,
+      "checkpoint_sha256": "ddf67e466f5215ae87ba411407bb59da013141d7049b49caa85e3f1503917a10"
+    },
+    {
+      "model": "llava",
+      "arm": "clip_dino",
+      "epoch": 3,
+      "n": 632,
+      "accuracy": 0.254746835443038,
+      "loss": 0.6703851529797893,
+      "checkpoint_sha256": "cb1cee7bcad3fa826aa82022db6a7c2f65eb20502521287033fb4449d7a79c45"
+    },
+    {
+      "model": "qwen",
+      "arm": "clip_double",
+      "epoch": 3,
+      "n": 632,
+      "accuracy": 0.254746835443038,
+      "loss": 0.8698602519661212,
+      "checkpoint_sha256": "6887378bf5f012ccfa7e53ba55188c0a730c1bc6b94b002f306d8bbd7f4d1d4d"
+    }
+  ],
+  "paired_results": [
+    {
+      "model": "llava",
+      "condition": "original",
+      "question_accuracy": 0.5,
+      "pair_accuracy": 0.0,
+      "pair_ci95": [
+        0.0,
+        0.0
+      ],
+      "invalid_responses": 0,
+      "pairs": 720
+    },
+    {
+      "model": "llava",
+      "condition": "crops_2x2",
+      "question_accuracy": 0.5,
+      "pair_accuracy": 0.0,
+      "pair_ci95": [
+        0.0,
+        0.0
+      ],
+      "invalid_responses": 0,
+      "pairs": 720
+    },
+    {
+      "model": "llava",
+      "condition": "transcription",
+      "question_accuracy": 0.5,
+      "pair_accuracy": 0.0,
+      "pair_ci95": [
+        0.0,
+        0.0
+      ],
+      "invalid_responses": 0,
+      "pairs": 720
+    },
+    {
+      "model": "qwen",
+      "condition": "original",
+      "question_accuracy": 0.59375,
+      "pair_accuracy": 0.20416666666666666,
+      "pair_ci95": [
+        0.17402405713666683,
+        0.23611302946593
+      ],
+      "invalid_responses": 0,
+      "pairs": 720
+    },
+    {
+      "model": "qwen",
+      "condition": "crops_2x2",
+      "question_accuracy": 0.44305555555555554,
+      "pair_accuracy": 0.001388888888888889,
+      "pair_ci95": [
+        0.0,
+        0.004201680672268907
+      ],
+      "invalid_responses": 161,
+      "pairs": 720
+    },
+    {
+      "model": "qwen",
+      "condition": "transcription",
+      "question_accuracy": 0.5243055555555556,
+      "pair_accuracy": 0.09444444444444444,
+      "pair_ci95": [
+        0.07024793388429752,
+        0.11846548102826351
+      ],
+      "invalid_responses": 2,
+      "pairs": 720
+    }
+  ],
+  "sources": [
+    {
+      "run_id": "mof13b-pilot50-v1",
+      "prediction_sha256": "b7ec8da7ba126f302c424b0df7ab8369c775cfbc9ffc09c689c84b828fd9fc06",
+      "metrics_sha256": "ec0444ab64bc4a1c672f94dd730ba5a5fcf79d54be4d77392ed81efa887590a5",
+      "run_sha256": "7bc974e9279302736225482dbd0840a1658e05fa9c5f0fb722016204d38893e2",
+      "records": 3173
+    },
+    {
+      "run_id": "mof-dinov3-stage0-pilot50-v1-llava",
+      "prediction_sha256": "39e22ac8f6d91d376a1d94567c28af38db127d2b8b5cd50f8401bfe8a5f2d96e",
+      "metrics_sha256": "d94386795f52f699dea59700e67a834f19d26e6fe57e6ceca16803296def23a8",
+      "run_sha256": "e5f447098ab57f67dd7a40979918de766001e905a16cc928ac31335077288850",
+      "records": 19038
+    },
+    {
+      "run_id": "aligned-pilot50-v1-llava-clip_double",
+      "prediction_sha256": "b1d927eef278ab946b6d4943b0652e7b251fd93bde98e130640e19fa7cf0a183",
+      "metrics_sha256": "55b266377dded89b12b443b63a8f213657168ef587c048470d2bb668e36078bd",
+      "run_sha256": "d98a0b8e01c06a29bb7d78f8da902f364a17bc60aedeae11446b03410f49d960",
+      "records": 3173
+    },
+    {
+      "run_id": "aligned-pilot50-v1-llava-clip_dino",
+      "prediction_sha256": "2cbb142ad8d273bede3ae54c5df9f7f1fdf8b27169dcc0dcc629d649ce93fa55",
+      "metrics_sha256": "331e9547d36051633b9f8738241dd88e31594d62cf39d62accf34786d4f85066",
+      "run_sha256": "b8417af0d4184f721e0d39d82fdef2e4fba44966689e7730f2e00eb8df035932",
+      "records": 3173
+    },
+    {
+      "run_id": "aligned-pilot50-v1-qwen-clip_double",
+      "prediction_sha256": "ee6b2251b200f464f1e4d295515ae4ea272e17e299092e3abef9e439a0effec8",
+      "metrics_sha256": "ff348ba41da894a0494fe5b03ba94e15769e3b2f310711399622f0aeecee74a4",
+      "run_sha256": "dc102aec769359adf2977b8919715da7b6c5eb727aa67a51ee5224b5dc7c6934",
+      "records": 3173
+    },
+    {
+      "run_id": "paired-mitigations-full-v1-llava",
+      "prediction_sha256": "0cf321e9065e5c51dc11ff84d71e2d8e7747e67a3de2323c064594b8d9e17092",
+      "metrics_sha256": "23f8407c23bc497bc8295eee6317430d7fe707bbd0654a74f8a53ccf6ea581f2"
+    },
+    {
+      "run_id": "paired-mitigations-full-v1-qwen",
+      "prediction_sha256": "c8084edee21a87bf45eb72ba0da42122db7b73c276bc5e7111d8a79fa9c76de5",
+      "metrics_sha256": "05c121bff9d27af92f97a44538d8c440e814c38cacf77ae0e2acc471e0ae6a1e"
+    }
+  ],
+  "limitations": [
+    "One initialization per arm; no robustness claim across seeds",
+    "Pilot previously explored; unknown upstream independence",
+    "Duplicated CLIP controls tokens, not trainable parameters or initialization",
+    "Frozen deterministic grader; full semantic audit remains pending; no BERTScore",
+    "Raw data, model weights and full private run archives are not distributed here",
+    "Unavailable results are not zeros and not evidence of running jobs"
+  ]
+}

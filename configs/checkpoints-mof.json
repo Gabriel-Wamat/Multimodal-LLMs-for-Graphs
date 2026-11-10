@@ -1,0 +1,90 @@
+{
+  "reference": "Verified artifacts of mof13b-pilot50-v1; exact bytes required for reproduction.",
+  "files": [
+    {
+      "role": "model",
+      "name": "config.json",
+      "sha256": "d00f8eaf8d71c71fe0299d3bb4b4f0b9e1eb0e6d5951c807dbaff2ab57cdecf5"
+    },
+    {
+      "role": "model",
+      "name": "generation_config.json",
+      "sha256": "684451ef5b02bb2883d15bff0aef7be79726bdd936ea45e599248e073d5b4d2f"
+    },
+    {
+      "role": "model",
+      "name": "pytorch_model-00001-of-00003.bin",
+      "sha256": "73d97f2973d79c60a0d5db82dea0c8c173f53a81994e7fdaf1f59f8e6241996d"
+    },
+    {
+      "role": "model",
+      "name": "pytorch_model-00002-of-00003.bin",
+      "sha256": "362e3b737653ece5d864631fadb899c7001a0bba1cf94f6b8e05b3683ca31df8"
+    },
+    {
+      "role": "model",
+      "name": "pytorch_model-00003-of-00003.bin",
+      "sha256": "f50532b03dc8b2624845cb764eeac7234a0ac18eb8898aeb73a68c7af26a4689"
+    },
+    {
+      "role": "model",
+      "name": "pytorch_model.bin.index.json",
+      "sha256": "698f2e0afefcf00cd56a20e5f472ca709be520c87a08813797098681660071af"
+    },
+    {
+      "role": "model",
+      "name": "special_tokens_map.json",
+      "sha256": "719833ff26ac897a3ec8ed946028a135de2a351470af59b4008744ab1f0ee9b7"
+    },
+    {
+      "role": "model",
+      "name": "tokenizer.model",
+      "sha256": "9e556afd44213b6bd1be2b850ebbbd98f5481437a8021afaf58ee7fb1818d347"
+    },
+    {
+      "role": "model",
+      "name": "tokenizer_config.json",
+      "sha256": "cf01145c6de57f061991ff871e85d0402c38481f968daea8874c431cd0c7740f"
+    },
+    {
+      "role": "clip",
+      "name": "config.json",
+      "sha256": "51b1c14aabcdf639c4a0370eeda1010b773bbe1df78319c7d0f5882c22ac0ac0"
+    },
+    {
+      "role": "clip",
+      "name": "preprocessor_config.json",
+      "sha256": "d253881f65322dc546df59cf925a408e5538b8ecb5a1b496cdd36af9992686d4"
+    },
+    {
+      "role": "clip",
+      "name": "pytorch_model.bin",
+      "sha256": "c6032c2e0caae3dc2d4fba35535fa6307dbb49df59c7e182b1bc4b3329b81801"
+    },
+    {
+      "role": "clip",
+      "name": "special_tokens_map.json",
+      "sha256": "f8c0d6c39aee3f8431078ef6646567b0aba7f2246e9c54b8b99d55c22b707cbf"
+    },
+    {
+      "role": "clip",
+      "name": "tokenizer.json",
+      "sha256": "b556ac8c99757ffb677208af34bc8c6721572114111a6e0aaf5fa69ff0b8d842"
+    },
+    {
+      "role": "clip",
+      "name": "tokenizer_config.json",
+      "sha256": "83cef1a5979147985887a84eda9cb13bae5f3f5413c74c92360f310a35361755"
+    },
+    {
+      "role": "clip",
+      "name": "vocab.json",
+      "sha256": "5047b556ce86ccaf6aa22b3ffccfc52d391ea4accdab9c2f2407da5b742d4363"
+    },
+    {
+      "role": "dino",
+      "name": "dinov2_vitl14_pretrain.pth",
+      "sha256": "d5383ea8f4877b2472eb973e0fd72d557c7da5d3611bd527ceeb1d7162cbf428"
+    }
+  ]
+}

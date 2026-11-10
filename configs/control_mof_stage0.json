@@ -1,0 +1,73 @@
+{
+  "experiment": "control-mof-dinov3-stage0-v1",
+  "stage": "before_alignment_training",
+  "architecture": "paper-inspired-interleaved-mof",
+  "models": [
+    "llava",
+    "qwen"
+  ],
+  "arms": [
+    "native",
+    "native_double",
+    "clip_double",
+    "dino_double",
+    "clip_dino",
+    "clip_dino_shuffled"
+  ],
+  "primary_contrast": [
+    "native",
+    "clip_dino"
+  ],
+  "token_budget_control": [
+    "native_double",
+    "clip_dino"
+  ],
+  "alignment_control": [
+    "clip_double",
+    "clip_dino"
+  ],
+  "spatial_negative_control": [
+    "clip_dino_shuffled",
+    "clip_dino"
+  ],
+  "adapter_seed": 20261102,
+  "replication_seeds": [
+    20261102,
+    20261103,
+    20261104
+  ],
+  "adapter_type": "linear-gelu-linear",
+  "adapter_init_std": 0.02,
+  "llava_clip_adapter": "reuse_pretrained_native_projector",
+  "llava_dino_adapter": "new_seeded_unaligned",
+  "qwen_clip_adapter": "new_seeded_unaligned",
+  "qwen_dino_adapter": "new_seeded_unaligned",
+  "clip_resolution": 336,
+  "dino_resolution": 384,
+  "qwen_resolution": 672,
+  "grid_side": 24,
+  "clip_layer": -2,
+  "dino_features": "HF_final_norm_input_excluding_cls_and_4_register_tokens",
+  "padding": "square_RGB_clip_mean_122_116_104",
+  "qwen_mrope_interleave": "virtual_width_doubled; same mapping for all double-token arms",
+  "dtype": "bfloat16",
+  "quantization": null,
+  "attention": "eager",
+  "do_sample": false,
+  "max_new_tokens": 96,
+  "split": "data/manifests/pilot50_v1/split.json",
+  "inputs": "data/manifests/pilot50_v1/inputs.jsonl",
+  "labels": "data/manifests/pilot50_v1/labels.jsonl",
+  "metric_unit": "question; graph-clustered uncertainty; no certified contrastive image pairs",
+  "primary_scorer": "original_v1_plus_exact_yes_no_aliases_for_binary_only",
+  "training_performed": false,
+  "inference_time_limit_hours": 24,
+  "inference_min_vram_gib": {
+    "llava": 20,
+    "qwen": 16
+  },
+  "training_min_vram_gib": {
+    "llava": 48,
+    "qwen": 20
+  }
+}

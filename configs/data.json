@@ -1,0 +1,5 @@
+{
+  "images": "data/processed/graficos",
+  "manifest": "data/manifests/imagens.json",
+  "workbook": "data/processed/gabarito.xlsx"
+}
