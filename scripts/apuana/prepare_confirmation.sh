@@ -23,3 +23,4 @@ for image, expected in {(r["image"],r["image_sha256"]) for r in inputs}:
     assert sha(ROOT/image) == expected
 print(json.dumps(complete))
 PY
+.venv-analysis/bin/python -m src.data.audit_confirmation

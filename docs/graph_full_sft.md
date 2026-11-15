@@ -96,3 +96,14 @@ Crie cada réplica com `python3 -m scripts.apuana.prepare_sft_replica --source <
 O relatório calcula a diferença da fusão em pontos percentuais **dentro de cada semente** antes de resumir a média, o desvio-padrão amostral e os extremos das três diferenças. Os intervalos por gráfico medem outra fonte de variação e aparecem nos relatórios de cada execução.
 
 Após as três sementes, o script `scripts/apuana/report_full_campaign.sh` calcula a estabilidade em ambos os conjuntos, prepara os formulários cegos da campanha primária e executa o notebook em HTML. Submeta o relatório na CPU a partir da cópia do avaliador, passando os três prefixos em ordem e a raiz do projeto que contém o notebook. A revisão das respostas recebe os vereditos dos revisores depois da geração do formulário.
+
+## Comparação com as etapas anteriores
+
+O relatório de estágios lê as previsões antes do ajuste, o ajuste de projetores quando concluído e os checkpoints completos do piloto. A tabela apresenta os acertos sobre as mesmas 3.173 perguntas. Para LLaVA, a condição histórica usava o ramo CLIP nativo e a campanha completa usa o CLIP externo. Os contrastes descrevem as diferenças observadas sob esses protocolos.
+
+```bash
+.venv-control/bin/python -m src.evaluation.compare_training_stages \
+  --model qwen --prefix <campanha> --before <execucao-sem-ajuste>
+```
+
+O notebook lê os relatórios em `results/<campanha>-stages/`. A auditoria do conjunto independente pode ser repetida com `python -m src.data.audit_confirmation`, que recalcula cada resposta a partir do CSV e da pergunta.
