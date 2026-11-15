@@ -88,3 +88,21 @@ Nas mesmas 3.173 perguntas, aplicando a todos os modelos a regra que aceita Sim/
 O Qwen recebeu treinamento supervisionado em gráficos. A arquitetura e o treinamento também diferem entre Qwen e I-MoF, o que limita a atribuição do ganho a um componente específico. Os intervalos cobrem a variação entre famílias de gráficos na primeira execução. [Comparação pareada e resultados por tipo de gráfico](official_comparison/graph-full-sft-v1-20261114-qwen.json)
 
 Para recalcular com os artefatos completos da campanha, execute `python -m src.evaluation.compare_official_baseline --prefix graph-full-sft-v1-20261114 --model qwen`.
+
+### Controle usando apenas a pergunta
+
+Uma regra que consulta as 2.475 respostas de treino acertou **684/3.173 (21,56%)** no piloto e **135/632 (21,36%)** no desenvolvimento. Para cada pergunta, a regra escolhe a resposta mais frequente no mesmo formato e enunciado normalizado. Se o enunciado é novo, usa a resposta mais frequente do formato. Os empates seguem ordem lexical. No piloto, 2.607 perguntas tinham enunciado e formato já vistos, e 566 usaram a segunda regra. [Contagens por tipo e formato](question-prior-v1.json)
+
+| Qwen após o ajuste completo | Ganho sobre a regra no piloto | IC95% por família |
+|---|---:|---:|
+| CLIP único | +1,04 pp | −0,91 a +2,88 |
+| CLIP duplicado | +2,77 pp | +1,35 a +4,25 |
+| CLIP + DINOv3 | +2,55 pp | +1,11 a +4,04 |
+
+Este diagnóstico exploratório usa as mesmas perguntas e a mesma correção automática. A diferença inclui o que o modelo pode aprender sobre o texto da pergunta e sobre o gráfico. Para reproduzir com os artefatos da campanha, execute `python -m src.evaluation.question_prior --prefix graph-full-sft-v1-20261114 --model qwen`. [Comparações pareadas](question_prior/graph-full-sft-v1-20261114-qwen.json)
+
+### Primeira validação do LLaVA com CLIP único
+
+Nas 632 perguntas de desenvolvimento, o alinhamento por descrições produziu 81 acertos (12,82%). Após a primeira época de ajuste do decoder e do projetor, houve 146 (23,10%). Das mesmas respostas, 137 passaram de erro para acerto e 72 de acerto para erro. A diferença foi de +10,28 pp, com IC95% de +7,28 a +13,27 por reamostragem de gráficos. As respostas rejeitadas por formato passaram de 87 para 9. [Contagens pareadas](development/graph-full-sft-v1-20261114-llava-clip_single-development/epoch-00-vs-01.json)
+
+Nas 12 perguntas de dispersão que pediam a direção da relação entre X e Y com as mesmas três opções, o modelo respondeu “sobe” em todos os casos após essa época e acertou cinco. Na época zero, três respostas expressavam a direção correta em uma frase e receberam zero pelo formato. Esse recorte ajuda a interpretar os ganhos automáticos de desenvolvimento.

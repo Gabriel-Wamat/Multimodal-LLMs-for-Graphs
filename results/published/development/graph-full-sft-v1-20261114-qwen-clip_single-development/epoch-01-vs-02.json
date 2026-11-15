@@ -1,0 +1,42 @@
+{
+  "scope": "development only; epoch 0 follows caption alignment",
+  "run": "graph-full-sft-v1-20261114-qwen-clip_single",
+  "epochs": [
+    {
+      "epoch": 1,
+      "correct": 129,
+      "auto_error_groups": {
+        "outside_numeric_interval": 246,
+        "answer_mismatch_semantics_unreviewed": 257,
+        "correct": 129
+      },
+      "predictions_sha256": "fe2acf5a0856de62d114072d46cc2843d44aab5a66a2caafb900bcc315a4a20a",
+      "accuracy": 0.20411392405063292
+    },
+    {
+      "epoch": 2,
+      "correct": 147,
+      "auto_error_groups": {
+        "outside_numeric_interval": 223,
+        "answer_mismatch_semantics_unreviewed": 262,
+        "correct": 147
+      },
+      "predictions_sha256": "31382510f7abe40123aacc62d290c039ef72d3ffd03f8a97ded53a96df51910c",
+      "accuracy": 0.23259493670886075
+    }
+  ],
+  "n": 632,
+  "gained": 127,
+  "lost": 109,
+  "unchanged_correct": 20,
+  "unchanged_error": 376,
+  "paired": {
+    "delta_accuracy": 0.028481012658227847,
+    "delta_percentage_points": 2.848101265822785,
+    "ci95_graph_bootstrap": [
+      -0.004762094026799909,
+      0.061708860759493674
+    ],
+    "unit": "same questions; graph-clustered, stratified type/style; exploratory"
+  }
+}

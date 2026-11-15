@@ -1,0 +1,70 @@
+{
+  "prefix": "graph-full-sft-v1-20261114",
+  "model": "qwen",
+  "dataset": "pilot50_v1",
+  "control_correct": 684,
+  "questions": 3173,
+  "pilot_sha256": "e095eaeade341f00f704212312d5dac7b9d6720347595a342ff228327f873578",
+  "arms": {
+    "clip_single": {
+      "model_correct": 717,
+      "predictions_sha256": "c8055ce3dd66ccde6b0418b7d5a20cfe0ad7273d7366f2d9372e423768af704d",
+      "difference": {
+        "estimate": 0.010400252127324299,
+        "ci95": [
+          -0.009126028368780233,
+          0.028816391144066984
+        ],
+        "families": 355,
+        "unit": "source similarity family",
+        "exploratory": true,
+        "questions": 3173,
+        "coefficients": {
+          "model": 1,
+          "control": -1
+        },
+        "percentage_points": 1.0400252127324299
+      }
+    },
+    "clip_double": {
+      "model_correct": 772,
+      "predictions_sha256": "88ad3f5bef68155554dd4237687f95db3ffdb8317cc41cfab12209392ee460d4",
+      "difference": {
+        "estimate": 0.027734005672864798,
+        "ci95": [
+          0.013492678817986251,
+          0.04250258756943449
+        ],
+        "families": 355,
+        "unit": "source similarity family",
+        "exploratory": true,
+        "questions": 3173,
+        "coefficients": {
+          "model": 1,
+          "control": -1
+        },
+        "percentage_points": 2.7734005672864797
+      }
+    },
+    "clip_dino": {
+      "model_correct": 765,
+      "predictions_sha256": "843ad1d3d102bf745e883ced974ada47e96e89f3182d34c05814a0a8ead0c450",
+      "difference": {
+        "estimate": 0.02552789158525055,
+        "ci95": [
+          0.011135238802276664,
+          0.04042683252197133
+        ],
+        "families": 355,
+        "unit": "source similarity family",
+        "exploratory": true,
+        "questions": 3173,
+        "coefficients": {
+          "model": 1,
+          "control": -1
+        },
+        "percentage_points": 2.552789158525055
+      }
+    }
+  }
+}

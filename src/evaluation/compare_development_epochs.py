@@ -59,11 +59,16 @@ def main():
     parser.add_argument("training_folder", type=Path)
     parser.add_argument("earlier", type=int)
     parser.add_argument("later", type=int)
+    parser.add_argument(
+        "--public", action="store_true", help="Save the aggregate in the public notebook data"
+    )
     args = parser.parse_args()
     report = compare(args.training_folder, args.earlier, args.later)
+    base = ROOT / "results"
+    if args.public:
+        base = base / "published" / "development"
     destination = (
-        ROOT
-        / "results"
+        base
         / (report["run"] + "-development")
         / f"epoch-{args.earlier:02d}-vs-{args.later:02d}.json"
     )

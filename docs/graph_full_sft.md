@@ -111,3 +111,5 @@ O notebook lê os relatórios em `results/<campanha>-stages/`. A auditoria do co
 ### Mudanças nas respostas entre épocas
 
 Para contar quantas perguntas de desenvolvimento passaram de erro para acerto e quantas passaram de acerto para erro, execute `python -m src.evaluation.compare_development_epochs experiments/full_sft/<treino> 1 2`. As duas épocas precisam ter validação completa. O comparador recalcula as métricas a partir das respostas, confere cada uma com o histórico da execução e grava as transições lidas pelo notebook. A época zero corresponde à validação logo após o alinhamento.
+
+Com `--public`, o comparador grava as contagens, os hashes das previsões e o intervalo pareado em `results/published/development/`. O notebook combina esses relatórios com os da cópia de trabalho e exibe cada comparação uma vez.
