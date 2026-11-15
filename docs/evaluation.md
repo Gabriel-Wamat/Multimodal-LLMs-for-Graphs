@@ -1,5 +1,24 @@
 # Métricas e interpretação
 
+## Como uma resposta recebe 1 ou 0
+
+**Acurácia automática por pergunta** é a fração de perguntas que passam no corretor. **Erro automático** é o complemento dessa fração. Um zero pode representar valor incorreto, contradição, formato rejeitado ou falha de execução. A distinção entre erro factual e resposta semanticamente correta em outro formato exige inspecionar a pergunta, o gráfico, o gabarito e a resposta bruta.
+
+Exemplos de aplicação da regra principal do piloto:
+
+| Gabarito e regra | Saída do modelo | Nota | Motivo |
+|---|---|---:|---|
+| 85, intervalo inclusivo de 80,75 a 89,25 | `82` | 1 | Valor dentro do intervalo. |
+| Mesmo gabarito | `90` | 0 | Valor fora do intervalo. |
+| Mesmo gabarito | `A barra vale 85.` | 0 | O valor está correto, mas o corretor exige uma resposta numérica isolada. |
+| Sim, pergunta binária | `Yes` | 1 | A regra principal aceita o equivalente em inglês. |
+| Grupo F, categoria | `O maior é o Grupo F.` | 0 | A categoria está correta, mas a frase inteira difere do rótulo esperado. |
+| A, B, C, em ordem pedida | `B, A, C` | 0 | A resposta inverte duas posições. |
+
+Uma categoria com nome parecido pode designar outra entidade. Por exemplo, “Grupo 12” e “Grupo 1” devem receber notas diferentes quando a pergunta pede a categoria com a maior barra. Conferir o nome e o valor na fonte permite distinguir esse erro factual de uma resposta correta com texto adicional.
+
+Para auditar a semântica, registre por resposta se o fato solicitado foi respondido corretamente, se houve contradição, se faltou informação ou se o próprio gabarito é ambíguo. Registre separadamente se o formato foi cumprido. Uma taxa de acerto semântico exige revisão identificada, amostra e denominador explícitos. Os percentuais automáticos abaixo usam as regras por formato.
+
 ## Perguntas do piloto
 
 A avaliação usa o formato solicitado no gabarito. Números com tolerância são aceitos dentro dos limites inclusivos do alvo; os demais formatos usam correspondência normalizada. Listas preservam a ordem. Respostas ausentes, falhas ou não interpretáveis contam no denominador e não recebem acerto.

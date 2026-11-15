@@ -1,0 +1,125 @@
+{
+  "version": "paper-training-design-v1",
+  "status": "design_only_not_executable",
+  "paper": "Eyes Wide Shut? Exploring the Visual Shortcomings of Multimodal LLMs",
+  "paper_url": "https://arxiv.org/html/2401.06209v2",
+  "official_code": "https://github.com/tsb0601/MMVP",
+  "requested_code_revision": "763500597e65c3446f09047837ceda76f4e264bf",
+  "pinned_training_script_audit": "retrieved and audited four training sources at the requested revision; source hashes recorded privately",
+  "scope_decision": "user selected same two-stage recipe on project graphs",
+  "canonical_candidate": "Published Appendix A / Table 4, LLaVA-1.5 column; reconcile release-script differences before execution",
+  "literal_reproduction": {
+    "language_model": "Vicuna-13B-v1.5",
+    "clip": "CLIP ViT-L/14",
+    "dino": "DINOv2 ViT-L/14",
+    "original_control": "CLIP-only LLaVA-1.5",
+    "experimental_arm": "I-MoF CLIP + DINOv2",
+    "additional_control": "CLIP duplicated; optional token-length ablation, additional to original baseline",
+    "stage1": {
+      "objective": "image-text alignment",
+      "data_as_reported": "CC595k; exact downloadable manifest and image membership pending audit",
+      "trainable": [
+        "active visual projectors"
+      ],
+      "frozen": [
+        "CLIP encoder",
+        "DINOv2 encoder",
+        "language model"
+      ],
+      "epochs": 1,
+      "global_batch_size": 256,
+      "learning_rate": 0.002,
+      "deepspeed_zero_stage": 2
+    },
+    "stage2": {
+      "objective": "multimodal instruction tuning",
+      "data_as_reported": "LLaVA-1.5 DataMix 665k; exact downloadable manifest and image membership pending audit",
+      "trainable": [
+        "language model",
+        "active visual projectors"
+      ],
+      "frozen": [
+        "CLIP encoder",
+        "DINOv2 encoder"
+      ],
+      "initialization": "same Vicuna foundation; corresponding stage-1 visual projectors",
+      "epochs": 1,
+      "global_batch_size": 128,
+      "learning_rate": 2e-05,
+      "deepspeed_zero_stage": 3,
+      "lora": false
+    },
+    "shared": {
+      "optimizer": "AdamW",
+      "weight_decay": 0,
+      "warmup_fraction": 0.03,
+      "scheduler": "cosine",
+      "precision": "BF16",
+      "sequence_length_from_release_scripts": 2048,
+      "gradient_checkpointing": true
+    },
+    "geometry": {
+      "primary_table3": {
+        "clip_only_resolution": 336,
+        "fusion_resolution": 224,
+        "clip_only_tokens": 576,
+        "fusion_tokens": 512,
+        "reported_mmvp_pair_accuracy": 0.28
+      },
+      "higher_resolution_appendix_e2": {
+        "clip_only_resolution": 336,
+        "fusion_resolution": 336,
+        "clip_only_tokens": 576,
+        "fusion_tokens": 1152,
+        "reported_mmvp_pair_accuracy": 0.313
+      },
+      "target": "pending; select and pin one published variant before execution"
+    },
+    "release_script_discrepancies": [
+      {
+        "setting": "stage1 learning rate",
+        "paper_table4": 0.002,
+        "public_pretrain_sh": 0.001
+      },
+      {
+        "setting": "stage2 effective global batch",
+        "paper_table4": 128,
+        "public_finetune_sh": 176,
+        "calculation": "8 GPUs * 11 per device * 2 accumulation"
+      }
+    ]
+  },
+  "domain_adaptation": {
+    "status": "implemented; real GPU/full-resume gates pending",
+    "backbones": [
+      "LLaVA-1.5-7B",
+      "Qwen2-VL-2B"
+    ],
+    "encoder_variant": "current CLIP + DINOv3 is an extension; original DINOv2 reference should remain separate",
+    "stage1": "projector alignment with training-only image-text supervision; dataset and budget to predeclare",
+    "stage2": "full language-model and projector instruction tuning on training-only graph QA",
+    "existing_training_questions": 2475,
+    "existing_development_questions": 632,
+    "existing_exploratory_pilot_questions": 3173,
+    "matched_arms": [
+      "CLIP single",
+      "CLIP duplicated token control",
+      "CLIP + DINO"
+    ],
+    "epoch_budget": "predeclare for both arms; do not transfer paper epoch count without dataset/update-budget qualification",
+    "primary_metric": "same frozen question scorer on the exploratory graph pilot",
+    "selection": "development only; pilot not used for choosing hyperparameters",
+    "runtime_config": "configs/graph_full_sft_v1.json"
+  },
+  "implementation_requirements": [
+    "Independent full-SFT runner; current AlignmentModel deliberately freezes the decoder",
+    "Audit exact trainable parameters and gradients in both stages",
+    "Save and resume full language-model weights, projectors, optimizer, scheduler, RNG and data cursor",
+    "Load and evaluate complete selected checkpoint, not only projector tensors",
+    "Measure VRAM, throughput, checkpoint I/O and global batch on actual SLURM allocation",
+    "Separate frozen snapshots, experiment IDs and result series from projector-only campaign",
+    "Validate original benchmark and graph pilot with explicitly different metric units"
+  ],
+  "resource_status": "not validated; original paper reports up to 8 A100 GPUs; current single-GPU projector evidence does not validate full 13B training",
+  "execution_started": false
+}

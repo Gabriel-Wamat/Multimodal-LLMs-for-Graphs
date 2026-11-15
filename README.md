@@ -91,6 +91,8 @@ O treino ajusta somente os projetores visuais, com encoders e modelo de linguage
   --training-run alignment-llava-fusion-01 --run-id evaluated-llava-fusion-01
 ```
 
+A adaptação em **duas etapas**, com treinamento completo do decoder e dos projetores na etapa de instruction tuning, tem executor e checkpoints próprios: veja [treinamento completo nos gráficos](docs/graph_full_sft.md). A série de ajuste de projetores abaixo permanece separada.
+
 Históricos e checkpoints ficam em `experiments/training/<training-run>/`; a avaliação fica em `results/<run-id>/`. O checkpoint é selecionado exclusivamente no desenvolvimento, incluindo a época zero. Treinamento e avaliação do piloto têm registros de conclusão separados. O mesmo guia descreve o controle `clip_double`, o Qwen e os pares A/B.
 
 ## Execução em cluster
@@ -106,6 +108,8 @@ python3 scripts/apuana/submit_control.py \
 O comando exibe os jobs sem submetê-los. O guia explica como incluir a preparação dos pesos, escolher recursos e acompanhar uma execução. Os templates permitem definir nó, memória, partição e tempo; não exigem endereço ou conta pessoal no código. A CLI Python também pode rodar diretamente em um host GPU preparado.
 
 ## Resultados verificados
+
+**Como medimos acerto e erro.** Cada pergunta vale 1 se a resposta passa na regra do gabarito e 0 caso contrário. Valores aproximados usam os limites numéricos publicados. Categorias e listas exigem rótulos normalizados e respeitam a ordem solicitada. A regra principal aceita `Yes/No` nas perguntas `Sim/Não`. Por exemplo, para um gabarito numérico de 85, `85` pontua e `A barra vale 85.` recebe zero por formato. Assim, a taxa de erro automático inclui respostas cujo sentido pode estar correto. Nos pares A/B, só há acerto quando as duas respostas estão corretas. [Exemplos e regras de avaliação](docs/evaluation.md)
 
 O [resumo publicado](results/published/README.md) registra as evidências coletadas em **03/11/2026**, com hashes de origem e limites de interpretação. Os valores abaixo são acurácias por pergunta no piloto de **360 gráficos e 3.173 perguntas**; não representam o estado atual dos jobs.
 

@@ -25,12 +25,24 @@ def validate(model, rows, folder, epoch):
     losses = []
     predictions = []
     with torch.no_grad():
-        for row in rows:
+        for completed, row in enumerate(rows, 1):
             loss, _ = model.loss(row)
             losses.append(float(loss))
             predictions.append(
                 {"id": row["id"], "response": model.answer(row), "status": "ok"}
             )
+            if completed % 25 == 0 or completed == len(rows):
+                progress = {
+                    "phase": "validation",
+                    "epoch": epoch,
+                    "completed": completed,
+                    "total": len(rows),
+                    "mean_loss": sum(losses) / len(losses),
+                    "seconds": time.perf_counter() - start,
+                    "updated_at_unix": time.time(),
+                }
+                write_json(folder / "progress.json", progress)
+                print(json.dumps(progress), flush=True)
     strict, _ = evaluate(rows, predictions)
     metric, _ = evaluate(rows, normalize_binary(rows, predictions))
     out = folder / "validation" / f"epoch-{epoch:02d}"
@@ -259,6 +271,18 @@ def main():
             state["cursor"] += len(batch)
             state["updates"] += 1
             state["epoch_train_seconds"] += time.perf_counter() - started
+            if state["updates"] % 10 == 0:
+                progress = {
+                    "phase": "train",
+                    "epoch": epoch + 1,
+                    "updates": state["updates"],
+                    "cursor": state["cursor"],
+                    "total": len(order),
+                    "mean_loss": state["loss_sum"] / state["loss_count"],
+                    "updated_at_unix": time.time(),
+                }
+                write_json(folder / "progress.json", progress)
+                print(json.dumps(progress), flush=True)
             if state["updates"] % cfg["checkpoint_every_updates"] == 0 or state[
                 "cursor"
             ] == len(order):
