@@ -9,7 +9,7 @@ A [arquitetura e os modelos](docs/architecture.md) estão documentados no núcle
 Para visualizar resultados e preparar dados, use Python 3.10–3.12, sem necessidade de GPU. Instale o [uv](https://docs.astral.sh/uv/getting-started/installation/) e sincronize o ambiente:
 
 ```bash
-git clone https://github.com/Gabriel-Wamat/Multimodal-LLMs-for-Graphs.git
+git clone --branch codex/two-stage-graph-training https://github.com/Gabriel-Wamat/Multimodal-LLMs-for-Graphs.git
 cd Multimodal-LLMs-for-Graphs
 uv sync --locked --extra notebooks --extra dev
 uv pip check
