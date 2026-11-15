@@ -116,3 +116,7 @@ Conferimos os hashes do conjunto de desenvolvimento e recalculamos as duas valid
 A regra fixada no piloto acertou **211/1.080 (19,54%)** em 360 gráficos de confirmação, com IC95% de 17,59% a 21,39% por reamostragem dos gráficos. Dos 211 acertos, 184 ocorreram nas 360 perguntas binárias. Em 180 perguntas a regra encontrou o mesmo enunciado e formato no treino. Nas outras 900, usou a resposta mais frequente do formato. [Contagens por tipo e formato](question-prior-confirmation-v1.json)
 
 Execute `python -m src.evaluation.question_prior --confirmation` para reproduzir o controle. Após a inferência dos três checkpoints de uma base, acrescente `--prefix <campanha> --model qwen` ou `--model llava` com o mesmo prefixo para comparar as respostas por gráfico.
+
+### Similaridade das representações visuais
+
+Calibramos o limiar de cada encoder no percentil 75 de 142 pares de desenvolvimento. Nos 720 pares de avaliação, 154 ficaram acima ou no limiar nos dois encoders, 56 apenas no CLIP e 51 apenas no DINOv3. Os outros 459 ficaram abaixo em ambos. Aplicando os limiares históricos de CLIP > 0,95 e DINO < 0,60 com DINOv3, nenhum dos 720 pares atendeu aos dois critérios. Todos os pares participaram da avaliação. [Sensibilidade aos limiares e contagens por atributo](representation-similarity-v1.json)
