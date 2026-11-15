@@ -62,3 +62,15 @@ Ao concluir as avaliações dos três controles de uma base, execute na raiz do 
 ```
 
 Use `confirmation_v1` para o conjunto independente. Cada exportação confere os hashes, corrige as respostas com o gabarito e registra em `results/published/full_sft/` os acertos, denominadores, intervalos de confiança, erros por formato, custo de inferência e diferenças entre braços. O notebook lê esses resumos em um checkout público.
+
+### Qwen após o treino do decoder e dos projetores
+
+Os três checkpoints concluíram o piloto de 3.173 perguntas na primeira semente. Para a revisão semântica, o Codex examinou as mesmas 36 perguntas por configuração com a identidade de cada resposta oculta. Respostas idênticas à mesma pergunta receberam o mesmo veredito. Houve 78 julgamentos distintos e um revisor.
+
+| Configuração | Acerto automático no piloto | Acerto semântico na amostra |
+|---|---:|---:|
+| CLIP único | 717/3.173 (22,60%) | 14/36 (38,89%) |
+| CLIP duplicado | 772/3.173 (24,33%) | 12/36 (33,33%) |
+| CLIP + DINOv3 | 765/3.173 (24,11%) | 12/36 (33,33%) |
+
+Na amostra, o corretor e o revisor deram o mesmo veredito nas 108 respostas. Um exemplo de erro compartilhado foi situar um cruzamento de séries em 2003 quando o primeiro ano que satisfaz a comparação é 2004. O ganho da fusão frente a CLIP duplicado no piloto foi de −0,22 ponto percentual, com intervalo de 95% de −1,11 a +0,67 por reamostragem das famílias de gráficos. [Métricas do piloto](full_sft/graph-full-sft-v1-20261114-qwen-pilot50_v1.json) · [Contagens da revisão semântica](semantic-qwen-full-sft-v1.json)

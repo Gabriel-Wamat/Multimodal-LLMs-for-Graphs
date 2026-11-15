@@ -1,0 +1,405 @@
+{
+  "schema": "full_sft_aggregates_v1",
+  "dataset": "pilot50_v1",
+  "model": "qwen",
+  "seed": 20261102,
+  "adapter_seed": 20261102,
+  "correction": "primary_binary_aliases_v2",
+  "training": "caption alignment followed by full decoder and projector instruction tuning",
+  "protocol_sha256": "677411ae2f94e58e0c8a805dd79379278e3a639072a7891073c34bb8102b33f2",
+  "analysis_sha256": "de33f248656383e8c92a574f9ce5a99dbed0d4b211b42484015783de5f456df6",
+  "arms": {
+    "clip_single": {
+      "correct": 717,
+      "questions": 3173,
+      "accuracy": 0.2259691144027734,
+      "accuracy_ci95_graph_bootstrap": [
+        0.21327345795364758,
+        0.2386653438524785
+      ],
+      "graphs": 360,
+      "by_chart_type": {
+        "Barras": {
+          "n": 540,
+          "correct": 83,
+          "accuracy": 0.1537037037037037
+        },
+        "Boxplot": {
+          "n": 540,
+          "correct": 158,
+          "accuracy": 0.29259259259259257
+        },
+        "Dispersão": {
+          "n": 540,
+          "correct": 177,
+          "accuracy": 0.3277777777777778
+        },
+        "Histograma": {
+          "n": 473,
+          "correct": 85,
+          "accuracy": 0.17970401691331925
+        },
+        "Linhas": {
+          "n": 540,
+          "correct": 122,
+          "accuracy": 0.22592592592592592
+        },
+        "Pizza": {
+          "n": 540,
+          "correct": 92,
+          "accuracy": 0.17037037037037037
+        }
+      },
+      "by_response_format": {
+        "ano": {
+          "n": 180,
+          "correct": 33,
+          "accuracy": 0.18333333333333332
+        },
+        "categoria": {
+          "n": 321,
+          "correct": 50,
+          "accuracy": 0.1557632398753894
+        },
+        "faixa": {
+          "n": 120,
+          "correct": 3,
+          "accuracy": 0.025
+        },
+        "lista": {
+          "n": 120,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "número": {
+          "n": 1440,
+          "correct": 313,
+          "accuracy": 0.21736111111111112
+        },
+        "número inteiro": {
+          "n": 452,
+          "correct": 98,
+          "accuracy": 0.2168141592920354
+        },
+        "sim/não": {
+          "n": 360,
+          "correct": 163,
+          "accuracy": 0.4527777777777778
+        },
+        "sobe/cai": {
+          "n": 60,
+          "correct": 21,
+          "accuracy": 0.35
+        },
+        "sobe/cai/não muda": {
+          "n": 60,
+          "correct": 24,
+          "accuracy": 0.4
+        },
+        "−0,9 / −0,5 / 0 / 0,5 / 0,9": {
+          "n": 60,
+          "correct": 12,
+          "accuracy": 0.2
+        }
+      },
+      "by_question_level": {
+        "N1": {
+          "n": 1080,
+          "correct": 194,
+          "accuracy": 0.17962962962962964
+        },
+        "N2": {
+          "n": 1013,
+          "correct": 315,
+          "accuracy": 0.3109575518262586
+        },
+        "N3": {
+          "n": 1080,
+          "correct": 208,
+          "accuracy": 0.1925925925925926
+        }
+      },
+      "automatic_error_counts": {
+        "outside_numeric_interval": 1127,
+        "answer_mismatch_semantics_unreviewed": 1329,
+        "correct": 717
+      },
+      "selected_epoch": 2,
+      "checkpoint_sha256": "93db00fc63b88ba3a232c9b77d76add1d48e3cd7dec633a45e4380dd76bff683",
+      "predictions_sha256": "c8055ce3dd66ccde6b0418b7d5a20cfe0ad7273d7366f2d9372e423768af704d",
+      "total_generation_seconds": 1304.0755888875574,
+      "median_generation_seconds": 0.31141088157892227,
+      "p95_generation_seconds": 0.7431385703384875,
+      "peak_gpu_bytes": 6273306112,
+      "generated_tokens": 19878
+    },
+    "clip_double": {
+      "correct": 772,
+      "questions": 3173,
+      "accuracy": 0.2433028679483139,
+      "accuracy_ci95_graph_bootstrap": [
+        0.23132682004412228,
+        0.25575022976228917
+      ],
+      "graphs": 360,
+      "by_chart_type": {
+        "Barras": {
+          "n": 540,
+          "correct": 80,
+          "accuracy": 0.14814814814814814
+        },
+        "Boxplot": {
+          "n": 540,
+          "correct": 151,
+          "accuracy": 0.2796296296296296
+        },
+        "Dispersão": {
+          "n": 540,
+          "correct": 190,
+          "accuracy": 0.35185185185185186
+        },
+        "Histograma": {
+          "n": 473,
+          "correct": 82,
+          "accuracy": 0.1733615221987315
+        },
+        "Linhas": {
+          "n": 540,
+          "correct": 140,
+          "accuracy": 0.25925925925925924
+        },
+        "Pizza": {
+          "n": 540,
+          "correct": 129,
+          "accuracy": 0.2388888888888889
+        }
+      },
+      "by_response_format": {
+        "ano": {
+          "n": 180,
+          "correct": 25,
+          "accuracy": 0.1388888888888889
+        },
+        "categoria": {
+          "n": 321,
+          "correct": 62,
+          "accuracy": 0.19314641744548286
+        },
+        "faixa": {
+          "n": 120,
+          "correct": 3,
+          "accuracy": 0.025
+        },
+        "lista": {
+          "n": 120,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "número": {
+          "n": 1440,
+          "correct": 301,
+          "accuracy": 0.20902777777777778
+        },
+        "número inteiro": {
+          "n": 452,
+          "correct": 105,
+          "accuracy": 0.2323008849557522
+        },
+        "sim/não": {
+          "n": 360,
+          "correct": 204,
+          "accuracy": 0.5666666666666667
+        },
+        "sobe/cai": {
+          "n": 60,
+          "correct": 38,
+          "accuracy": 0.6333333333333333
+        },
+        "sobe/cai/não muda": {
+          "n": 60,
+          "correct": 24,
+          "accuracy": 0.4
+        },
+        "−0,9 / −0,5 / 0 / 0,5 / 0,9": {
+          "n": 60,
+          "correct": 10,
+          "accuracy": 0.16666666666666666
+        }
+      },
+      "by_question_level": {
+        "N1": {
+          "n": 1080,
+          "correct": 204,
+          "accuracy": 0.18888888888888888
+        },
+        "N2": {
+          "n": 1013,
+          "correct": 377,
+          "accuracy": 0.3721618953603159
+        },
+        "N3": {
+          "n": 1080,
+          "correct": 191,
+          "accuracy": 0.17685185185185184
+        }
+      },
+      "automatic_error_counts": {
+        "outside_numeric_interval": 1139,
+        "answer_mismatch_semantics_unreviewed": 1262,
+        "correct": 772
+      },
+      "selected_epoch": 3,
+      "checkpoint_sha256": "20003242c1f029072204a4544f717e79403c19c075100f25e83d2f8bf79393e9",
+      "predictions_sha256": "88ad3f5bef68155554dd4237687f95db3ffdb8317cc41cfab12209392ee460d4",
+      "total_generation_seconds": 1033.5653746798635,
+      "median_generation_seconds": 0.3194793090224266,
+      "p95_generation_seconds": 0.450159253552556,
+      "peak_gpu_bytes": 4910432768,
+      "generated_tokens": 15937
+    },
+    "clip_dino": {
+      "correct": 765,
+      "questions": 3173,
+      "accuracy": 0.24109675386069965,
+      "accuracy_ci95_graph_bootstrap": [
+        0.22879586812950156,
+        0.25355829687463627
+      ],
+      "graphs": 360,
+      "by_chart_type": {
+        "Barras": {
+          "n": 540,
+          "correct": 77,
+          "accuracy": 0.1425925925925926
+        },
+        "Boxplot": {
+          "n": 540,
+          "correct": 140,
+          "accuracy": 0.25925925925925924
+        },
+        "Dispersão": {
+          "n": 540,
+          "correct": 182,
+          "accuracy": 0.337037037037037
+        },
+        "Histograma": {
+          "n": 473,
+          "correct": 86,
+          "accuracy": 0.18181818181818182
+        },
+        "Linhas": {
+          "n": 540,
+          "correct": 145,
+          "accuracy": 0.26851851851851855
+        },
+        "Pizza": {
+          "n": 540,
+          "correct": 135,
+          "accuracy": 0.25
+        }
+      },
+      "by_response_format": {
+        "ano": {
+          "n": 180,
+          "correct": 31,
+          "accuracy": 0.17222222222222222
+        },
+        "categoria": {
+          "n": 321,
+          "correct": 55,
+          "accuracy": 0.17133956386292834
+        },
+        "faixa": {
+          "n": 120,
+          "correct": 3,
+          "accuracy": 0.025
+        },
+        "lista": {
+          "n": 120,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "número": {
+          "n": 1440,
+          "correct": 302,
+          "accuracy": 0.20972222222222223
+        },
+        "número inteiro": {
+          "n": 452,
+          "correct": 101,
+          "accuracy": 0.2234513274336283
+        },
+        "sim/não": {
+          "n": 360,
+          "correct": 203,
+          "accuracy": 0.5638888888888889
+        },
+        "sobe/cai": {
+          "n": 60,
+          "correct": 39,
+          "accuracy": 0.65
+        },
+        "sobe/cai/não muda": {
+          "n": 60,
+          "correct": 24,
+          "accuracy": 0.4
+        },
+        "−0,9 / −0,5 / 0 / 0,5 / 0,9": {
+          "n": 60,
+          "correct": 7,
+          "accuracy": 0.11666666666666667
+        }
+      },
+      "by_question_level": {
+        "N1": {
+          "n": 1080,
+          "correct": 209,
+          "accuracy": 0.1935185185185185
+        },
+        "N2": {
+          "n": 1013,
+          "correct": 370,
+          "accuracy": 0.36525172754195456
+        },
+        "N3": {
+          "n": 1080,
+          "correct": 186,
+          "accuracy": 0.17222222222222222
+        }
+      },
+      "automatic_error_counts": {
+        "outside_numeric_interval": 1138,
+        "answer_mismatch_semantics_unreviewed": 1270,
+        "correct": 765
+      },
+      "selected_epoch": 3,
+      "checkpoint_sha256": "6e4c04c783c92eacf8e71fc0be5be3b45250db90c9eb79dedc0985573c620efe",
+      "predictions_sha256": "843ad1d3d102bf745e883ced974ada47e96e89f3182d34c05814a0a8ead0c450",
+      "total_generation_seconds": 1099.6051111258566,
+      "median_generation_seconds": 0.32118044793605804,
+      "p95_generation_seconds": 0.4550991490483282,
+      "peak_gpu_bytes": 4925428224,
+      "generated_tokens": 17340
+    }
+  },
+  "fusion_minus_control": {
+    "clip_single": {
+      "difference_pp": 1.5127639457926252,
+      "ci95_pp": [
+        -0.18940442466423169,
+        3.2023689134640674
+      ],
+      "families": 355,
+      "questions": 3173
+    },
+    "clip_double": {
+      "difference_pp": -0.22061140876142452,
+      "ci95_pp": [
+        -1.1138623161331125,
+        0.6664008300497192
+      ],
+      "families": 355,
+      "questions": 3173
+    }
+  }
+}
