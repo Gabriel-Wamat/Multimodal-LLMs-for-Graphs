@@ -1,6 +1,6 @@
 # Multimodal LLMs for Graphs
 
-Pipeline de leitura de gráficos com modelos multimodais. A partir de CSVs e perguntas com gabarito, o projeto gera imagens, executa inferência e produz previsões, métricas e relatórios. Compara o I-MoF oficial, LLaVA-1.5-7B e Qwen2-VL-2B, incluindo a combinação de representações CLIP e DINOv3 e o ajuste dos projetores visuais.
+Pipeline de leitura de gráficos com modelos multimodais. A partir de CSVs e perguntas com gabarito, o projeto gera imagens, executa inferência e produz previsões, métricas e relatórios. Compara o I-MoF oficial, LLaVA-1.5-7B e Qwen2-VL-2B, para medir quanto o DINOv3 acrescenta à leitura de gráficos quando combinado com CLIP. O projeto avalia modelos sem ajuste, com ajuste apenas dos projetores e com treinamento dos projetores e do modelo de linguagem.
 
 A [arquitetura e os modelos](docs/architecture.md) estão documentados no núcleo. Os comandos abaixo partem da raiz do repositório.
 
@@ -78,7 +78,13 @@ Use `--model qwen` e IDs próprios para o Qwen. Resoluções, seeds, revisões e
 
 Cada execução grava respostas em `results/<run-id>/predictions.jsonl` e métricas em `results/<run-id>/scored/metrics.json`. Os manifestos registram configuração, fontes e hashes. Para retomar uma execução interrompida, repita o comando com o mesmo ID e `--resume`; o executor exige as mesmas entradas, pesos, código e configuração. Use outro ID para um novo experimento.
 
-## Treinamento dos projetores
+## Treinamento nos gráficos
+
+A adaptação do I-MoF usa os gráficos do projeto em duas etapas. Primeiro, 277 pares de gráfico e descrição ensinam os projetores a alinhar as representações visuais ao modelo de linguagem. Depois, 2.475 perguntas com gabarito supervisionam o ajuste do decoder completo, da camada de saída e dos projetores. CLIP e DINOv3 permanecem congelados nas duas etapas.
+
+Cada base, LLaVA ou Qwen, tem três configurações comparáveis: CLIP único, CLIP duplicado e CLIP + DINOv3. As 632 perguntas de desenvolvimento selecionam o checkpoint de cada treino. A avaliação usa as 3.173 perguntas do piloto e, separadamente, 1.080 perguntas sobre 360 gráficos inéditos. Os scripts, os requisitos de GPU, as sementes e o critério de seleção estão no [protocolo de treinamento no Apuana](docs/graph_full_sft.md).
+
+### Controle com ajuste apenas dos projetores
 
 O treino ajusta somente os projetores visuais, com encoders e modelo de linguagem congelados. Prepare os splits e conclua os diagnósticos de gradiente, atualização, recarga e retomada conforme o [guia de experimentos](docs/experiments.md). Com esses pré-requisitos aprovados:
 
@@ -90,8 +96,6 @@ O treino ajusta somente os projetores visuais, com encoders e modelo de linguage
 .venv-control/bin/python -m src.evaluation.trained \
   --training-run alignment-llava-fusion-01 --run-id evaluated-llava-fusion-01
 ```
-
-A adaptação em **duas etapas**, com treinamento completo do decoder e dos projetores na etapa de instruction tuning, tem executor e checkpoints próprios: veja [treinamento completo nos gráficos](docs/graph_full_sft.md). A série de ajuste de projetores abaixo permanece separada.
 
 Históricos e checkpoints ficam em `experiments/training/<training-run>/`; a avaliação fica em `results/<run-id>/`. O checkpoint é selecionado exclusivamente no desenvolvimento, incluindo a época zero. Treinamento e avaliação do piloto têm registros de conclusão separados. O mesmo guia descreve o controle `clip_double`, o Qwen e os pares A/B.
 
@@ -110,6 +114,8 @@ O comando exibe os jobs sem submetê-los. O guia explica como incluir a prepara�
 ## Resultados verificados
 
 **Como medimos acerto e erro.** Cada pergunta vale 1 se a resposta passa na regra do gabarito e 0 caso contrário. Valores aproximados usam os limites numéricos publicados. Categorias e listas exigem rótulos normalizados e respeitam a ordem solicitada. A regra principal aceita `Yes/No` nas perguntas `Sim/Não`. Por exemplo, para um gabarito numérico de 85, `85` pontua e `A barra vale 85.` recebe zero por formato. Assim, a taxa de erro automático inclui respostas cujo sentido pode estar correto. Nos pares A/B, só há acerto quando as duas respostas estão corretas. [Exemplos e regras de avaliação](docs/evaluation.md)
+
+**Acerto semântico na amostra revisada.** Nas mesmas 36 perguntas, a revisão identificou 6 respostas corretas do I-MoF, 14 do LLaVA com CLIP duplicado, 10 do LLaVA com fusão e 13 do Qwen com CLIP duplicado histórico. Nos três modelos ajustados apenas pelos projetores, os julgamentos coincidiram com a regra automática em cada resposta auditada. No I-MoF, a tradução correta de um rótulo de categoria recuperou um acerto além dos cinco aceitos pela regra com equivalência de sim/não. A revisão teve um revisor. [Amostra, critérios e contagens](docs/evaluation.md)
 
 O [resumo publicado](results/published/README.md) registra as evidências coletadas em **03/11/2026**, com hashes de origem e limites de interpretação. Os valores abaixo são acurácias por pergunta no piloto de **360 gráficos e 3.173 perguntas**; não representam o estado atual dos jobs.
 
@@ -132,7 +138,7 @@ CLIP duplicado controla o comprimento da sequência visual, mas não o número d
 |---|---|---|
 | `.venv` | Análise, dados e notebooks; Python 3.10–3.12 | `pyproject.toml` e `uv.lock` |
 | `.venv-mof` | I-MoF oficial; Linux/Python 3.10 | `configs/requirements-mof.txt` e `constraints-mof.txt` |
-| `.venv-control` | Controles e ajuste dos projetores; Linux/Python 3.10 | `configs/requirements-control.txt` |
+| `.venv-control` | Controles, projetores e treino em duas etapas em Linux/Python 3.10 | `configs/requirements-control.txt` |
 
 Para conferir o código e os arquivos versionados, sem carregar os modelos completos:
 
@@ -151,7 +157,7 @@ configs/             revisões dos modelos e parâmetros dos experimentos
 src/data/            renderização, seleção, auditoria e construção de pares
 src/models/          checkpoints oficiais, encoders e intercalação visual
 src/evaluation/      inferência, corretores, métricas e análise dos pares
-src/training/        ajuste dos projetores e retomada de checkpoints
+src/training/        alinhamento visual, treino do decoder e retomada de checkpoints
 scripts/local/       preparação, relatórios e monitoramento configurável
 scripts/apuana/      instalação e execução em SLURM
 notebooks/           painel de resultados, exploração e inspeção visual
