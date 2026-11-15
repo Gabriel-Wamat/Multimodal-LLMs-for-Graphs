@@ -110,3 +110,9 @@ Nas 12 perguntas de dispersão que pediam a direção da relação entre X e Y c
 ### Qwen com CLIP + DINOv3 na primeira época de perguntas e respostas
 
 Conferimos os hashes do conjunto de desenvolvimento e recalculamos as duas validações sobre as mesmas 632 perguntas. O ajuste apenas dos projetores acertou **98/632 (15,51%)**. A receita em duas etapas, com alinhamento por descrições seguido de ajuste dos projetores e do modelo de linguagem, acertou **133/632 (21,04%)**. Foram 51 acertos compartilhados, 47 exclusivos do ajuste dos projetores e 82 exclusivos da receita em duas etapas. A diferença de **+5,54 pp** tem IC95% exploratório de **+3,48 a +7,60 pp** por reamostragem pareada de gráficos, estratificada por tipo e estilo. Essa comparação de desenvolvimento mede a diferença entre as receitas completas na primeira época de perguntas e respostas. A avaliação dos checkpoints selecionados usa o piloto de 3.173 perguntas.
+
+### Controle sem imagem nos gráficos inéditos
+
+A regra fixada no piloto acertou **211/1.080 (19,54%)** em 360 gráficos de confirmação, com IC95% de 17,59% a 21,39% por reamostragem dos gráficos. Dos 211 acertos, 184 ocorreram nas 360 perguntas binárias. Em 180 perguntas a regra encontrou o mesmo enunciado e formato no treino. Nas outras 900, usou a resposta mais frequente do formato. [Contagens por tipo e formato](question-prior-confirmation-v1.json)
+
+Execute `python -m src.evaluation.question_prior --confirmation` para reproduzir o controle. Após a inferência dos três checkpoints de uma base, acrescente `--prefix <campanha> --model qwen` ou `--model llava` com o mesmo prefixo para comparar as respostas por gráfico.
