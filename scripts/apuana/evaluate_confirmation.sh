@@ -25,3 +25,7 @@ for arm in clip_single clip_double clip_dino; do
 done
 .venv-control/bin/python -m src.evaluation.compare_full_sft \
     --prefix "$prefix" --model "$model" --dataset confirmation_v1
+for dataset in pilot50_v1 confirmation_v1; do
+    .venv-control/bin/python -m scripts.local.export_full_sft_results \
+        --prefix "$prefix" --model "$model" --dataset "$dataset"
+done

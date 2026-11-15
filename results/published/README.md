@@ -51,3 +51,14 @@ python scripts/local/export_public_results.py --snapshot-date YYYY-MM-DD
 ```
 
 Esse comando exige os pacotes privados de execução em suas pastas correspondentes. Uma cópia limpa do GitHub já contém o resumo e pode visualizá-lo sem eles. A publicação do código não repetiu inferência CUDA ou treinamento completo.
+
+## Treino em duas etapas
+
+Ao concluir as avaliações dos três controles de uma base, execute na raiz do projeto:
+
+```bash
+.venv-control/bin/python -m scripts.local.export_full_sft_results \
+  --prefix <campanha> --model qwen --dataset pilot50_v1
+```
+
+Use `confirmation_v1` para o conjunto independente. Cada exportação confere os hashes, corrige as respostas com o gabarito e registra em `results/published/full_sft/` os acertos, denominadores, intervalos de confiança, erros por formato, custo de inferência e diferenças entre braços. O notebook lê esses resumos em um checkout público.

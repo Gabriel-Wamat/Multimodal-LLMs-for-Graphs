@@ -8,6 +8,7 @@ import unittest
 from src.data.pilot import sha
 from src.evaluation.compare_full_sft import ARMS, compare_model
 from src.evaluation.score import evaluate
+from scripts.local.export_full_sft_results import public_summary
 
 
 def save(path, obj):
@@ -105,6 +106,13 @@ class PilotComparisonTest(unittest.TestCase):
                 100,
             )
             self.assertEqual(report["arms"]["clip_single"]["error_counts"], {"invalid_format": 2})
+            public = public_summary(report)
+            self.assertEqual(public["arms"]["clip_dino"]["correct"], 2)
+            self.assertEqual(
+                public["fusion_minus_control"]["clip_double"]["ci95_pp"], [100.0, 100.0]
+            )
+            self.assertNotIn("target", json.dumps(public))
+            self.assertNotIn("training_run", json.dumps(public))
             record["config"]["seed"] = 7
             save(train / "run.json", record)
             metadata["training_record_sha256"] = sha(train / "run.json")

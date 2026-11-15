@@ -94,3 +94,5 @@ Crie cada réplica com `python3 -m scripts.apuana.prepare_sft_replica --source <
 ```
 
 O relatório calcula a diferença da fusão em pontos percentuais **dentro de cada semente** antes de resumir a média, o desvio-padrão amostral e os extremos das três diferenças. Os intervalos por gráfico medem outra fonte de variação e aparecem nos relatórios de cada execução.
+
+Após as três sementes, o script `scripts/apuana/report_full_campaign.sh` calcula a estabilidade em ambos os conjuntos, prepara os formulários cegos da campanha primária e executa o notebook em HTML. Submeta o relatório na CPU a partir da cópia do avaliador, passando os três prefixos em ordem e a raiz do projeto que contém o notebook. A revisão das respostas recebe os vereditos dos revisores depois da geração do formulário.
