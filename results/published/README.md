@@ -74,3 +74,17 @@ Os três checkpoints concluíram o piloto de 3.173 perguntas na primeira semente
 | CLIP + DINOv3 | 765/3.173 (24,11%) | 12/36 (33,33%) |
 
 Na amostra, o corretor e o revisor deram o mesmo veredito nas 108 respostas. Um exemplo de erro compartilhado foi situar um cruzamento de séries em 2003 quando o primeiro ano que satisfaz a comparação é 2004. O ganho da fusão frente a CLIP duplicado no piloto foi de −0,22 ponto percentual, com intervalo de 95% de −1,11 a +0,67 por reamostragem das famílias de gráficos. [Métricas do piloto](full_sft/graph-full-sft-v1-20261114-qwen-pilot50_v1.json) · [Contagens da revisão semântica](semantic-qwen-full-sft-v1.json)
+
+### Comparação com o I-MoF oficial
+
+Nas mesmas 3.173 perguntas, aplicando a todos os modelos a regra que aceita Sim/Não em português ou inglês, o I-MoF de 13B acertou 311 (9,80%). A tabela mostra quantas perguntas cada modelo acertou sozinho e a diferença de acurácia.
+
+| Configuração do Qwen | Só Qwen acertou | Só I-MoF acertou | Diferença em pp [IC95% por família] |
+|---|---:|---:|---:|
+| CLIP único | 643 | 237 | +12,80 [11,08 a 14,53] |
+| CLIP duplicado | 541 | 80 | +14,53 [13,10 a 15,86] |
+| CLIP + DINOv3 | 541 | 87 | +14,31 [12,95 a 15,62] |
+
+O Qwen recebeu treinamento supervisionado em gráficos. A arquitetura e o treinamento também diferem entre Qwen e I-MoF, o que limita a atribuição do ganho a um componente específico. Os intervalos cobrem a variação entre famílias de gráficos na primeira execução. [Comparação pareada e resultados por tipo de gráfico](official_comparison/graph-full-sft-v1-20261114-qwen.json)
+
+Para recalcular com os artefatos completos da campanha, execute `python -m src.evaluation.compare_official_baseline --prefix graph-full-sft-v1-20261114 --model qwen`.
