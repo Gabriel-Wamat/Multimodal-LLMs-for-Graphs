@@ -1,0 +1,1138 @@
+{
+  "llava": {
+    "sources": {
+      "run.json": "2700eee55fb3ea58468c23795debe6dac8146dbac5a4869986fd7a21426d29e6",
+      "complete.json": "db6a3e5f95fd3561d7fc3f93b377ca3ccaa42dd7b84ad14c4e974e860dcb1910",
+      "scored/metrics.json": "23f8407c23bc497bc8295eee6317430d7fe707bbd0654a74f8a53ccf6ea581f2",
+      "scored/hypotheses.json": "eaa5655a189612162b79f4723c0bc16f76da004269ad7f940cac7f5e780b228a",
+      "predictions.jsonl": "0cf321e9065e5c51dc11ff84d71e2d8e7747e67a3de2323c064594b8d9e17092"
+    },
+    "H2_and_similarity_error": {
+      "crops_2x2": {
+        "H2": {
+          "all": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "families": 355,
+            "pairs": 360,
+            "unit": "source similarity family",
+            "exploratory": true,
+            "contrast": "large minus subtle paired accuracy",
+            "origins": 360
+          },
+          "by_attribute": {
+            "bar_height": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "bin_count": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 55,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "last_year_order": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "median_order": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "slice_proportion": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "trend_sign": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            }
+          }
+        },
+        "spearman": {
+          "clip": {
+            "rho": null,
+            "pairs": 720,
+            "families": 355,
+            "outcome": "pair error (one or both images incorrect)",
+            "resampling_unit": "whole source family",
+            "ci95": null,
+            "bootstrap_requested": 2000,
+            "bootstrap_valid": 0,
+            "p_value": null,
+            "exploratory": true,
+            "reason": "constant variable or fewer than two observations"
+          },
+          "dinov3": {
+            "rho": null,
+            "pairs": 720,
+            "families": 355,
+            "outcome": "pair error (one or both images incorrect)",
+            "resampling_unit": "whole source family",
+            "ci95": null,
+            "bootstrap_requested": 2000,
+            "bootstrap_valid": 0,
+            "p_value": null,
+            "exploratory": true,
+            "reason": "constant variable or fewer than two observations"
+          }
+        }
+      },
+      "original": {
+        "H2": {
+          "all": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "families": 355,
+            "pairs": 360,
+            "unit": "source similarity family",
+            "exploratory": true,
+            "contrast": "large minus subtle paired accuracy",
+            "origins": 360
+          },
+          "by_attribute": {
+            "bar_height": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "bin_count": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 55,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "last_year_order": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "median_order": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "slice_proportion": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "trend_sign": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            }
+          }
+        },
+        "spearman": {
+          "clip": {
+            "rho": null,
+            "pairs": 720,
+            "families": 355,
+            "outcome": "pair error (one or both images incorrect)",
+            "resampling_unit": "whole source family",
+            "ci95": null,
+            "bootstrap_requested": 2000,
+            "bootstrap_valid": 0,
+            "p_value": null,
+            "exploratory": true,
+            "reason": "constant variable or fewer than two observations"
+          },
+          "dinov3": {
+            "rho": null,
+            "pairs": 720,
+            "families": 355,
+            "outcome": "pair error (one or both images incorrect)",
+            "resampling_unit": "whole source family",
+            "ci95": null,
+            "bootstrap_requested": 2000,
+            "bootstrap_valid": 0,
+            "p_value": null,
+            "exploratory": true,
+            "reason": "constant variable or fewer than two observations"
+          }
+        }
+      },
+      "transcription": {
+        "H2": {
+          "all": {
+            "estimate": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "families": 355,
+            "pairs": 360,
+            "unit": "source similarity family",
+            "exploratory": true,
+            "contrast": "large minus subtle paired accuracy",
+            "origins": 360
+          },
+          "by_attribute": {
+            "bar_height": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "bin_count": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 55,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "last_year_order": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "median_order": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "slice_proportion": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "trend_sign": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            }
+          }
+        },
+        "spearman": {
+          "clip": {
+            "rho": null,
+            "pairs": 720,
+            "families": 355,
+            "outcome": "pair error (one or both images incorrect)",
+            "resampling_unit": "whole source family",
+            "ci95": null,
+            "bootstrap_requested": 2000,
+            "bootstrap_valid": 0,
+            "p_value": null,
+            "exploratory": true,
+            "reason": "constant variable or fewer than two observations"
+          },
+          "dinov3": {
+            "rho": null,
+            "pairs": 720,
+            "families": 355,
+            "outcome": "pair error (one or both images incorrect)",
+            "resampling_unit": "whole source family",
+            "ci95": null,
+            "bootstrap_requested": 2000,
+            "bootstrap_valid": 0,
+            "p_value": null,
+            "exploratory": true,
+            "reason": "constant variable or fewer than two observations"
+          }
+        }
+      }
+    },
+    "H3": {
+      "crops_2x2": {
+        "paired_delta": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "families": 355,
+          "pairs": 720,
+          "unit": "source similarity family",
+          "exploratory": true
+        },
+        "multiplicity": "p values unadjusted; exploratory, report all comparisons",
+        "mcnemar": {
+          "bar_height/large": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "bar_height/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "median_order/large": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "median_order/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "trend_sign/large": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "trend_sign/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "bin_count/large": {
+            "lost": 0,
+            "gained": 0,
+            "n": 55,
+            "p_exact_two_sided": 1.0
+          },
+          "bin_count/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 55,
+            "p_exact_two_sided": 1.0
+          },
+          "last_year_order/large": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "last_year_order/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "slice_proportion/large": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "slice_proportion/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          }
+        }
+      },
+      "transcription": {
+        "paired_delta": {
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "families": 355,
+          "pairs": 720,
+          "unit": "source similarity family",
+          "exploratory": true
+        },
+        "multiplicity": "p values unadjusted; exploratory, report all comparisons",
+        "mcnemar": {
+          "bar_height/large": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "bar_height/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "median_order/large": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "median_order/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "trend_sign/large": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "trend_sign/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "bin_count/large": {
+            "lost": 0,
+            "gained": 0,
+            "n": 55,
+            "p_exact_two_sided": 1.0
+          },
+          "bin_count/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 55,
+            "p_exact_two_sided": 1.0
+          },
+          "last_year_order/large": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "last_year_order/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "slice_proportion/large": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          },
+          "slice_proportion/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 1.0
+          }
+        }
+      }
+    }
+  },
+  "qwen": {
+    "sources": {
+      "run.json": "92f892f6c2e21a5eb9345f78ab55cea0b2455c93e5bb1b47754a89a08b31ae11",
+      "complete.json": "c6a03169f57dced58f350d0126b8aad7f2b2616531513aa9a491463c658decd7",
+      "scored/metrics.json": "05c121bff9d27af92f97a44538d8c440e814c38cacf77ae0e2acc471e0ae6a1e",
+      "scored/hypotheses.json": "02287d734a1544fdfc9661623756e552f26ccc731ca094f20a0282193e56c1fd",
+      "predictions.jsonl": "c8084edee21a87bf45eb72ba0da42122db7b73c276bc5e7111d8a79fa9c76de5"
+    },
+    "H2_and_similarity_error": {
+      "crops_2x2": {
+        "H2": {
+          "all": {
+            "estimate": 0.002777777777777778,
+            "ci95": [
+              0.0,
+              0.008403361344537815
+            ],
+            "families": 355,
+            "pairs": 360,
+            "unit": "source similarity family",
+            "exploratory": true,
+            "contrast": "large minus subtle paired accuracy",
+            "origins": 360
+          },
+          "by_attribute": {
+            "bar_height": {
+              "estimate": 0.016666666666666666,
+              "ci95": [
+                0.0,
+                0.05
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "bin_count": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 55,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "last_year_order": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "median_order": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "slice_proportion": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "trend_sign": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            }
+          }
+        },
+        "spearman": {
+          "clip": {
+            "rho": 0.029695602915223086,
+            "pairs": 720,
+            "families": 355,
+            "outcome": "pair error (one or both images incorrect)",
+            "resampling_unit": "whole source family",
+            "ci95": null,
+            "bootstrap_requested": 2000,
+            "bootstrap_valid": 1258,
+            "p_value": null,
+            "exploratory": true,
+            "reason": "more than 5% of family resamples have undefined correlation"
+          },
+          "dinov3": {
+            "rho": -0.004934314326859395,
+            "pairs": 720,
+            "families": 355,
+            "outcome": "pair error (one or both images incorrect)",
+            "resampling_unit": "whole source family",
+            "ci95": null,
+            "bootstrap_requested": 2000,
+            "bootstrap_valid": 1258,
+            "p_value": null,
+            "exploratory": true,
+            "reason": "more than 5% of family resamples have undefined correlation"
+          }
+        }
+      },
+      "original": {
+        "H2": {
+          "all": {
+            "estimate": 0.28055555555555556,
+            "ci95": [
+              0.2305395891043398,
+              0.330556129476584
+            ],
+            "families": 355,
+            "pairs": 360,
+            "unit": "source similarity family",
+            "exploratory": true,
+            "contrast": "large minus subtle paired accuracy",
+            "origins": 360
+          },
+          "by_attribute": {
+            "bar_height": {
+              "estimate": 0.4166666666666667,
+              "ci95": [
+                0.2833333333333333,
+                0.55
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "bin_count": {
+              "estimate": 0.03333333333333333,
+              "ci95": [
+                0.0,
+                0.0847457627118644
+              ],
+              "families": 55,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "last_year_order": {
+              "estimate": 0.11666666666666667,
+              "ci95": [
+                0.03333333333333333,
+                0.2
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "median_order": {
+              "estimate": 0.38333333333333336,
+              "ci95": [
+                0.26666666666666666,
+                0.5
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "slice_proportion": {
+              "estimate": 0.45,
+              "ci95": [
+                0.3333333333333333,
+                0.5666666666666667
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "trend_sign": {
+              "estimate": 0.2833333333333333,
+              "ci95": [
+                0.13333333333333333,
+                0.43333333333333335
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            }
+          }
+        },
+        "spearman": {
+          "clip": {
+            "rho": 0.23962973748986902,
+            "pairs": 720,
+            "families": 355,
+            "outcome": "pair error (one or both images incorrect)",
+            "resampling_unit": "whole source family",
+            "ci95": [
+              0.16878686109743418,
+              0.3095556777499511
+            ],
+            "bootstrap_requested": 2000,
+            "bootstrap_valid": 2000,
+            "p_value": null,
+            "exploratory": true
+          },
+          "dinov3": {
+            "rho": 0.2158656797651282,
+            "pairs": 720,
+            "families": 355,
+            "outcome": "pair error (one or both images incorrect)",
+            "resampling_unit": "whole source family",
+            "ci95": [
+              0.14308270103085796,
+              0.2843610105519733
+            ],
+            "bootstrap_requested": 2000,
+            "bootstrap_valid": 2000,
+            "p_value": null,
+            "exploratory": true
+          }
+        }
+      },
+      "transcription": {
+        "H2": {
+          "all": {
+            "estimate": 0.044444444444444446,
+            "ci95": [
+              0.005571030640668524,
+              0.08333913649025065
+            ],
+            "families": 355,
+            "pairs": 360,
+            "unit": "source similarity family",
+            "exploratory": true,
+            "contrast": "large minus subtle paired accuracy",
+            "origins": 360
+          },
+          "by_attribute": {
+            "bar_height": {
+              "estimate": 0.016666666666666666,
+              "ci95": [
+                -0.1,
+                0.11666666666666667
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "bin_count": {
+              "estimate": 0.0,
+              "ci95": [
+                -0.05,
+                0.05
+              ],
+              "families": 55,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "last_year_order": {
+              "estimate": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "median_order": {
+              "estimate": 0.05,
+              "ci95": [
+                0.0,
+                0.1
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "slice_proportion": {
+              "estimate": 0.15,
+              "ci95": [
+                0.016666666666666666,
+                0.3
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            },
+            "trend_sign": {
+              "estimate": 0.05,
+              "ci95": [
+                -0.06666666666666667,
+                0.16666666666666666
+              ],
+              "families": 60,
+              "pairs": 60,
+              "unit": "source similarity family",
+              "exploratory": true,
+              "contrast": "large minus subtle paired accuracy",
+              "origins": 60
+            }
+          }
+        },
+        "spearman": {
+          "clip": {
+            "rho": 0.162289933582549,
+            "pairs": 720,
+            "families": 355,
+            "outcome": "pair error (one or both images incorrect)",
+            "resampling_unit": "whole source family",
+            "ci95": [
+              0.0890779376063707,
+              0.23737608833128013
+            ],
+            "bootstrap_requested": 2000,
+            "bootstrap_valid": 2000,
+            "p_value": null,
+            "exploratory": true
+          },
+          "dinov3": {
+            "rho": 0.16182150320179126,
+            "pairs": 720,
+            "families": 355,
+            "outcome": "pair error (one or both images incorrect)",
+            "resampling_unit": "whole source family",
+            "ci95": [
+              0.08543867225913188,
+              0.24087390922305635
+            ],
+            "bootstrap_requested": 2000,
+            "bootstrap_valid": 2000,
+            "p_value": null,
+            "exploratory": true
+          }
+        }
+      }
+    },
+    "H3": {
+      "crops_2x2": {
+        "paired_delta": {
+          "estimate": -0.20277777777777778,
+          "ci95": [
+            -0.23463900527622594,
+            -0.17264119091467164
+          ],
+          "families": 355,
+          "pairs": 720,
+          "unit": "source similarity family",
+          "exploratory": true
+        },
+        "multiplicity": "p values unadjusted; exploratory, report all comparisons",
+        "mcnemar": {
+          "bar_height/large": {
+            "lost": 33,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 2.3283064365386963e-10
+          },
+          "bar_height/subtle": {
+            "lost": 9,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 0.00390625
+          },
+          "median_order/large": {
+            "lost": 26,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 2.9802322387695312e-08
+          },
+          "median_order/subtle": {
+            "lost": 3,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 0.25
+          },
+          "trend_sign/large": {
+            "lost": 22,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 4.76837158203125e-07
+          },
+          "trend_sign/subtle": {
+            "lost": 5,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 0.0625
+          },
+          "bin_count/large": {
+            "lost": 2,
+            "gained": 0,
+            "n": 55,
+            "p_exact_two_sided": 0.5
+          },
+          "bin_count/subtle": {
+            "lost": 0,
+            "gained": 0,
+            "n": 55,
+            "p_exact_two_sided": 1.0
+          },
+          "last_year_order/large": {
+            "lost": 9,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 0.00390625
+          },
+          "last_year_order/subtle": {
+            "lost": 2,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 0.5
+          },
+          "slice_proportion/large": {
+            "lost": 31,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 9.313225746154785e-10
+          },
+          "slice_proportion/subtle": {
+            "lost": 4,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 0.125
+          }
+        }
+      },
+      "transcription": {
+        "paired_delta": {
+          "estimate": -0.10972222222222222,
+          "ci95": [
+            -0.14206128133704735,
+            -0.0782122905027933
+          ],
+          "families": 355,
+          "pairs": 720,
+          "unit": "source similarity family",
+          "exploratory": true
+        },
+        "multiplicity": "p values unadjusted; exploratory, report all comparisons",
+        "mcnemar": {
+          "bar_height/large": {
+            "lost": 26,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 2.9802322387695312e-08
+          },
+          "bar_height/subtle": {
+            "lost": 7,
+            "gained": 5,
+            "n": 60,
+            "p_exact_two_sided": 0.7744140625
+          },
+          "median_order/large": {
+            "lost": 23,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 2.384185791015625e-07
+          },
+          "median_order/subtle": {
+            "lost": 3,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 0.25
+          },
+          "trend_sign/large": {
+            "lost": 17,
+            "gained": 5,
+            "n": 60,
+            "p_exact_two_sided": 0.01690053939819336
+          },
+          "trend_sign/subtle": {
+            "lost": 4,
+            "gained": 6,
+            "n": 60,
+            "p_exact_two_sided": 0.75390625
+          },
+          "bin_count/large": {
+            "lost": 1,
+            "gained": 0,
+            "n": 55,
+            "p_exact_two_sided": 1.0
+          },
+          "bin_count/subtle": {
+            "lost": 0,
+            "gained": 1,
+            "n": 55,
+            "p_exact_two_sided": 1.0
+          },
+          "last_year_order/large": {
+            "lost": 9,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 0.00390625
+          },
+          "last_year_order/subtle": {
+            "lost": 2,
+            "gained": 0,
+            "n": 60,
+            "p_exact_two_sided": 0.5
+          },
+          "slice_proportion/large": {
+            "lost": 18,
+            "gained": 7,
+            "n": 60,
+            "p_exact_two_sided": 0.043285250663757324
+          },
+          "slice_proportion/subtle": {
+            "lost": 3,
+            "gained": 10,
+            "n": 60,
+            "p_exact_two_sided": 0.09228515625
+          }
+        }
+      }
+    }
+  }
+}
