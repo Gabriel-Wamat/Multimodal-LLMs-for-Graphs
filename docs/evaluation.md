@@ -48,3 +48,16 @@ O piloto de gráficos e os pares binários são tarefas diferentes. O benchmark 
 O controle CLIP duplicado iguala os tokens da fusão, mas os projetores têm capacidades e inicializações distintas. Os treinos usam uma inicialização por braço; a campanha não estabelece robustez entre seeds. Os modelos/precisões e tetos de geração diferem entre o I-MoF legado e a extensão experimental.
 
 Os tempos observados incluem efeitos de cache/carregamento e nem todos os executores iniciam o cronômetro na mesma etapa. Não calcular speedup entre cronômetros incompatíveis. Treinos LLaVA e Qwen também usaram classes diferentes de GPU; o hardware deve acompanhar cada registro de custo.
+
+## Revisão semântica dos checkpoints completos
+
+Para cada conjunto, o formulário seleciona uma pergunta por combinação de tipo e estilo de gráfico. A seleção usa apenas os IDs. Os modelos recebem as mesmas 36 perguntas. Respostas idênticas à mesma pergunta compartilham uma decisão. O formulário apresenta o gráfico, a pergunta, o gabarito e a resposta. A chave que identifica o modelo fica em outro arquivo.
+
+```bash
+python -m src.evaluation.semantic_review --dataset pilot50_v1 \
+  --runs <piloto-controle> <piloto-fusão> --output results/revisao-semantica
+```
+
+Preencha uma cópia de `blank_review.csv` e registre o revisor e a evidência visual ou numérica de cada decisão. Use **correta** quando a resposta expressa o fato pedido, inclusive em outra formulação. Use **incorreta** para contradição, entidade errada ou valor fora dos limites. Use **parcial** para uma resposta incompleta e **indeterminada** quando os dados visíveis ou o gabarito forem ambíguos. Informe as quatro contagens e o denominador da amostra. A proporção de casos corretos nessa revisão descreve as perguntas auditadas.
+
+Execute `python -m scripts.apuana.score_semantic_review results/revisao-semantica <planilha-preenchida.csv>` para validar a cobertura e cruzar acerto automático com o veredito semântico por modelo. A tabela inclui a contagem de respostas corretas em significado que receberam zero do corretor automático.
