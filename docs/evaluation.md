@@ -69,3 +69,15 @@ Nas mesmas 36 perguntas, a regra estrita aceitou **1/36 (2,78%)**, a regra com e
 A diferença entre cinco e seis veio de uma categoria traduzida. A resposta identificou em inglês o grupo correto do gráfico. O corretor reconhece traduções nas perguntas de sim/não, mas exige o rótulo esperado nas perguntas de categoria. Já informar o total quando a pergunta pede o valor de uma fatia conta como erro de conteúdo.
 
 A revisão foi feita pelo Codex, com um único revisor e conhecimento da identidade do modelo. Os percentuais descrevem apenas as 36 perguntas auditadas. No piloto de 3.173 perguntas, há pontuações automáticas. As contagens agregadas e os hashes do formulário e da revisão estão no [registro da amostra](../results/published/semantic-mof13b-v1.json).
+
+## Revisão dos modelos com ajuste apenas dos projetores
+
+O Codex revisou as saídas dos três checkpoints nas mesmas 36 perguntas do piloto usadas na auditoria do I-MoF. O formulário ocultava qual checkpoint havia produzido cada resposta. Respostas idênticas à mesma pergunta receberam um único julgamento. Foram 77 julgamentos distintos para 108 respostas. A revisão teve um revisor.
+
+| Checkpoint | Acertos automáticos | Acertos semânticos | Erros semânticos |
+|---|---:|---:|---:|
+| LLaVA, CLIP duplicado | 14/36 | 14/36 | 22/36 |
+| LLaVA, CLIP + DINOv3 | 10/36 | 10/36 | 26/36 |
+| Qwen, CLIP duplicado histórico | 13/36 | 13/36 | 23/36 |
+
+As duas regras coincidiram em cada resposta desta amostra. Os três modelos inverteram a resposta a uma pergunta sobre sobreposição de caixas e acertaram a direção de uma tendência crescente. Para perguntas aproximadas, a revisão aceitou respostas numéricas dentro dos limites inclusivos do gabarito. Houve zero casos parciais e zero indeterminados. A concordância observada descreve as perguntas revisadas. O controle Qwen desta tabela pertence à campanha histórica. [Contagens e registro da revisão](../results/published/semantic-projectors-v1.json)

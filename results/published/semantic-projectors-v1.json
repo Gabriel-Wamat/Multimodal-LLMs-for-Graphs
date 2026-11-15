@@ -1,0 +1,58 @@
+{
+  "dataset": "pilot50_v1",
+  "scope": "descriptive sample: one fixed question per chart type/style",
+  "reviewed_sheet_sha256": "276e398ef8ffbc4439119aedc2d13f6c3df6d28a0e51def9b3bb7a9643535a3e",
+  "protocol_sha256": "ece2dba20e62357fcbb91500bc300289277bacbd1f7612a111d6c7b79ede32cf",
+  "runs": {
+    "aligned-pilot50-v1-llava-clip_dino": {
+      "reviewed": 36,
+      "verdicts": {
+        "correta": 10,
+        "incorreta": 26,
+        "parcial": 0,
+        "indeterminada": 0
+      },
+      "semantic_correct_fraction_in_sample": 0.2777777777777778,
+      "automatic_by_semantic": {
+        "auto_0/incorreta": 26,
+        "auto_1/correta": 10
+      },
+      "strict_hits": 10,
+      "primary_hits": 10
+    },
+    "aligned-pilot50-v1-llava-clip_double": {
+      "reviewed": 36,
+      "verdicts": {
+        "correta": 14,
+        "incorreta": 22,
+        "parcial": 0,
+        "indeterminada": 0
+      },
+      "semantic_correct_fraction_in_sample": 0.3888888888888889,
+      "automatic_by_semantic": {
+        "auto_0/incorreta": 22,
+        "auto_1/correta": 14
+      },
+      "strict_hits": 14,
+      "primary_hits": 14
+    },
+    "aligned-pilot50-v1-qwen-clip_double": {
+      "reviewed": 36,
+      "verdicts": {
+        "correta": 13,
+        "incorreta": 23,
+        "parcial": 0,
+        "indeterminada": 0
+      },
+      "semantic_correct_fraction_in_sample": 0.3611111111111111,
+      "automatic_by_semantic": {
+        "auto_0/incorreta": 23,
+        "auto_1/correta": 13
+      },
+      "strict_hits": 13,
+      "primary_hits": 13
+    }
+  },
+  "review_method": "Codex, revisor único com atribuição das respostas por modelo oculta",
+  "distinct_reviewed_responses": 77
+}

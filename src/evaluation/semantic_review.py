@@ -52,6 +52,18 @@ def prepare(dataset, run_ids, destination):
                 record.get("dataset", "pilot50_v1") == dataset
                 and record["labels_sha256"] == split["labels_sha256"]
             )
+        elif "training_run" in record:
+            training = ROOT / "experiments/training" / record["training_run"]
+            training_end = json.loads((training / "complete.json").read_text())
+            aligned = (
+                dataset == "pilot50_v1"
+                and record["labels_sha256"] == split["labels_sha256"]
+                and record["selection_used_evaluation"] is False
+                and record["training_record_sha256"] == sha(training / "run.json")
+                and record["training_complete_sha256"] == sha(training / "complete.json")
+                and record["checkpoint_sha256"] == training_end["best_sha256"]
+                and record["selected_epoch"] == training_end["best"]["epoch"]
+            )
         else:
             # The official baseline pinned its labels through the split manifest.
             baseline = ROOT / "configs/baseline_mof.json"
