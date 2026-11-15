@@ -32,6 +32,7 @@ def main():
              '|---|---|---:|---:|---:|']
     sources = {}
     analyses = {}
+    costs = {}
     for model in ['llava', 'qwen']:
         folder = ROOT / 'results' / ('paired-mitigations-full-v1-' + model)
         complete = read(folder/'complete.json')
@@ -44,6 +45,7 @@ def main():
         analyses[model] = hypothesis
         sources[model] = {name:digest(folder/name) for name in ['run.json','complete.json','scored/metrics.json','scored/hypotheses.json','predictions.jsonl']}
         metrics = read(folder/'scored/metrics.json')
+        costs[model] = metrics['costs']
         for condition, value in metrics['metrics'].items():
             lines.append(f"| {model} | {condition} | {100*value['question_accuracy']:.2f} | {interval(value['paired_accuracy'])} | {value['invalid_responses']} |")
     lines += ['', '## H2 — alterações amplas menos difíceis que sutis', '',
@@ -88,6 +90,7 @@ def main():
         for model, hypothesis in analyses.items():
             public[model] = {
                 'sources': sources[model],
+                'costs': costs[model],
                 'H2_and_similarity_error': {
                     condition: {'H2': value['H2'], 'spearman': value['similarity_error']['all']}
                     for condition, value in hypothesis['H2_and_similarity_error'].items()
