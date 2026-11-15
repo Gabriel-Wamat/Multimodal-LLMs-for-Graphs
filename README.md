@@ -117,16 +117,20 @@ O comando exibe os jobs sem submetê-los. O guia explica como incluir a prepara�
 
 **Acerto semântico na amostra revisada.** Nas mesmas 36 perguntas, a revisão identificou 6 respostas corretas do I-MoF, 14 do LLaVA com CLIP duplicado, 10 do LLaVA com fusão e 13 do Qwen com CLIP duplicado histórico. Nos três modelos ajustados apenas pelos projetores, os julgamentos coincidiram com a regra automática em cada resposta auditada. No I-MoF, a tradução correta de um rótulo de categoria recuperou um acerto além dos cinco aceitos pela regra com equivalência de sim/não. A revisão teve um revisor. [Amostra, critérios e contagens](docs/evaluation.md)
 
-O [resumo publicado](results/published/README.md) registra as evidências coletadas em **03/11/2026**, com hashes de origem e limites de interpretação. Os valores abaixo são acurácias por pergunta no piloto de **360 gráficos e 3.173 perguntas**; não representam o estado atual dos jobs.
+O piloto usa 360 gráficos e as mesmas 3.173 perguntas em cada configuração. A tabela reúne os resultados históricos de projetores e os checkpoints disponíveis da primeira semente do treino em duas etapas. A última coluna inclui a atualização do decoder. [Resultados e registros das comparações](results/published/README.md)
 
-| Modelo / configuração | Antes do ajuste | Após ajuste dos projetores |
-|---|---:|---:|
-| LLaVA-1.5-7B nativo | 8,89% | — |
-| LLaVA-1.5-7B nativo duplicado | 9,90% | — |
-| LLaVA-1.5-7B, CLIP duplicado | 9,90% | **27,92% (886/3.173)** |
-| LLaVA-1.5-7B, CLIP + DINOv3 | 0,00% | **24,27% (770/3.173)** |
-| Qwen2-VL-2B, CLIP duplicado | Sem resultado final confirmado | **24,30% (771/3.173)** |
-| Qwen2-VL-2B, CLIP + DINOv3 | Sem resultado final confirmado | Sem avaliação final confirmada |
+| Modelo / configuração | Sem ajuste | Apenas projetores | Treino em duas etapas |
+|---|---:|---:|---:|
+| LLaVA-1.5-7B nativo | 8,89% | — | — |
+| LLaVA-1.5-7B nativo duplicado | 9,90% | — | — |
+| LLaVA-1.5-7B, CLIP único externo | — | — | Pendente |
+| LLaVA-1.5-7B, CLIP duplicado | 9,90% | 27,92% (886) | Pendente |
+| LLaVA-1.5-7B, CLIP + DINOv3 | 0,00% | 24,27% (770) | Pendente |
+| Qwen2-VL-2B, CLIP único | — | — | 22,60% (717) |
+| Qwen2-VL-2B, CLIP duplicado | 5,48% (174) | 24,30% (771) | 24,33% (772) |
+| Qwen2-VL-2B, CLIP + DINOv3 | 0,00% (0) | Avaliação pendente | 24,11% (765) |
+
+Os números entre parênteses são acertos sobre 3.173 perguntas. Com CLIP duplicado, a diferença entre o treino completo e o ajuste histórico de projetores foi de +0,03 ponto percentual, com intervalo de 95% de −1,45 a +1,52 por reamostragem das famílias. No treino completo, 276 respostas passaram de erro para acerto e 275 passaram de acerto para erro em relação ao checkpoint de projetores. Os dois protocolos diferem nos exemplos de alinhamento, na taxa de aprendizado e nos componentes treináveis. [Comparação pareada do Qwen](results/published/training_stages/20261115-qwen-pilot50_v1.json)
 
 O I-MoF oficial de 13B obteve **119/3.173 (3,75%)** pelo corretor original. O diagnóstico posterior que aceita Yes/No como Sim/Não resulta em **311/3.173 (9,80%)**, preservando a pontuação original. A tarefa dos pares A/B tem outra regra de acerto e aparece separadamente no resumo.
 

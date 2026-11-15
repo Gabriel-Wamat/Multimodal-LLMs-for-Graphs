@@ -1,0 +1,159 @@
+{
+  "model": "qwen",
+  "dataset": "pilot50_v1",
+  "prefix": "graph-full-sft-v1-20261114",
+  "arms": {
+    "clip_double": {
+      "by_stage": {
+        "before": {
+          "correct": 174,
+          "n": 3173,
+          "accuracy": 0.05483769303498267,
+          "accuracy_ci95_graph_bootstrap": [
+            0.04935002336660944,
+            0.06030991733888702
+          ]
+        },
+        "full": {
+          "correct": 772,
+          "n": 3173,
+          "accuracy": 0.2433028679483139,
+          "accuracy_ci95_graph_bootstrap": [
+            0.23132682004412228,
+            0.25575022976228917
+          ]
+        },
+        "projectors": {
+          "correct": 771,
+          "n": 3173,
+          "accuracy": 0.24298770879294043,
+          "accuracy_ci95_graph_bootstrap": [
+            0.23035595871737313,
+            0.25622581866153965
+          ]
+        }
+      },
+      "contrasts": {
+        "before": {
+          "full_minus_reference_by_graph": {
+            "delta_accuracy": 0.18846517491333123,
+            "delta_percentage_points": 18.846517491333124,
+            "ci95_graph_bootstrap": [
+              0.17522808640099646,
+              0.20308115711118785
+            ],
+            "unit": "same questions; graph-clustered, stratified type/style; exploratory"
+          },
+          "full_minus_reference_by_family": {
+            "estimate": 0.18846517491333123,
+            "ci95": [
+              0.17266136147685626,
+              0.20491068034287727
+            ],
+            "families": 355,
+            "unit": "source similarity family",
+            "exploratory": true,
+            "questions": 3173,
+            "coefficients": {
+              "before": -1,
+              "full": 1
+            },
+            "percentage_points": 18.846517491333124
+          }
+        },
+        "projectors": {
+          "full_minus_reference_by_graph": {
+            "delta_accuracy": 0.0003151591553734636,
+            "delta_percentage_points": 0.03151591553734636,
+            "ci95_graph_bootstrap": [
+              -0.013233245371246365,
+              0.013836695679019675
+            ],
+            "unit": "same questions; graph-clustered, stratified type/style; exploratory"
+          },
+          "full_minus_reference_by_family": {
+            "estimate": 0.0003151591553734636,
+            "ci95": [
+              -0.014515963932816468,
+              0.015176187368379094
+            ],
+            "families": 355,
+            "unit": "source similarity family",
+            "exploratory": true,
+            "questions": 3173,
+            "coefficients": {
+              "projectors": -1,
+              "full": 1
+            },
+            "percentage_points": 0.03151591553734636
+          }
+        }
+      },
+      "predictions_sha256": {
+        "before": "bd4668cb890c669209ef7d3553fafc0dad6058fe3125e77bd2fbff8e692cf068",
+        "full": "88ad3f5bef68155554dd4237687f95db3ffdb8317cc41cfab12209392ee460d4",
+        "projectors": "ee6b2251b200f464f1e4d295515ae4ea272e17e299092e3abef9e439a0effec8"
+      }
+    },
+    "clip_dino": {
+      "by_stage": {
+        "before": {
+          "correct": 0,
+          "n": 3173,
+          "accuracy": 0.0,
+          "accuracy_ci95_graph_bootstrap": [
+            0.0,
+            0.0
+          ]
+        },
+        "full": {
+          "correct": 765,
+          "n": 3173,
+          "accuracy": 0.24109675386069965,
+          "accuracy_ci95_graph_bootstrap": [
+            0.22879586812950156,
+            0.25355829687463627
+          ]
+        }
+      },
+      "contrasts": {
+        "before": {
+          "full_minus_reference_by_graph": {
+            "delta_accuracy": 0.24109675386069965,
+            "delta_percentage_points": 24.109675386069966,
+            "ci95_graph_bootstrap": [
+              0.22879586812950156,
+              0.25355829687463627
+            ],
+            "unit": "same questions; graph-clustered, stratified type/style; exploratory"
+          },
+          "full_minus_reference_by_family": {
+            "estimate": 0.24109675386069965,
+            "ci95": [
+              0.2278597701332844,
+              0.2550706937283509
+            ],
+            "families": 355,
+            "unit": "source similarity family",
+            "exploratory": true,
+            "questions": 3173,
+            "coefficients": {
+              "before": -1,
+              "full": 1
+            },
+            "percentage_points": 24.109675386069966
+          }
+        }
+      },
+      "predictions_sha256": {
+        "before": "bd4668cb890c669209ef7d3553fafc0dad6058fe3125e77bd2fbff8e692cf068",
+        "full": "843ad1d3d102bf745e883ced974ada47e96e89f3182d34c05814a0a8ead0c450"
+      }
+    }
+  },
+  "inputs_sha256": "4004b03a90e3c0d8f21bcb1accea6d7ae9efde4f936ef9e989f8eccad2b1231e",
+  "labels_sha256": "a395c04a91f34333d31781bdecc7521254c9c7742409277e878ea20f8b163d47",
+  "families_sha256": "560eead40f6c5f34660ad5dd1b1f90cf6ab037648a8e71843954b3658df36e1c",
+  "analysis_sha256": "7df2a0f870bc27d847248f514b2177fae5468d725b6bfe94b850f76b57f4c4a1",
+  "scope": "Matched descriptive comparisons. Training supervision and trainable components differ across stages. LLaVA historical CLIP uses its native branch; full SFT uses external CLIP."
+}
