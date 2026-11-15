@@ -61,3 +61,11 @@ python -m src.evaluation.semantic_review --dataset pilot50_v1 \
 Preencha uma cópia de `blank_review.csv` e registre o revisor e a evidência visual ou numérica de cada decisão. Use **correta** quando a resposta expressa o fato pedido, inclusive em outra formulação. Use **incorreta** para contradição, entidade errada ou valor fora dos limites. Use **parcial** para uma resposta incompleta e **indeterminada** quando os dados visíveis ou o gabarito forem ambíguos. Informe as quatro contagens e o denominador da amostra. A proporção de casos corretos nessa revisão descreve as perguntas auditadas.
 
 Execute `python -m scripts.apuana.score_semantic_review results/revisao-semantica <planilha-preenchida.csv>` para validar a cobertura e cruzar acerto automático com o veredito semântico por modelo. A tabela inclui a contagem de respostas corretas em significado que receberam zero do corretor automático.
+
+## O que a revisão encontrou no I-MoF oficial
+
+Nas mesmas 36 perguntas, a regra estrita aceitou **1/36 (2,78%)**, a regra com equivalência de sim/não aceitou **5/36 (13,89%)** e a revisão semântica identificou **6/36 (16,67%)** corretas. As 30 restantes foram julgadas incorretas. Houve zero respostas parciais e zero indeterminadas.
+
+A diferença entre cinco e seis veio de uma categoria traduzida. A resposta identificou em inglês o grupo correto do gráfico. O corretor reconhece traduções nas perguntas de sim/não, mas exige o rótulo esperado nas perguntas de categoria. Já informar o total quando a pergunta pede o valor de uma fatia conta como erro de conteúdo.
+
+A revisão foi feita pelo Codex, com um único revisor e conhecimento da identidade do modelo. Os percentuais descrevem apenas as 36 perguntas auditadas. No piloto de 3.173 perguntas, há pontuações automáticas. As contagens agregadas e os hashes do formulário e da revisão estão no [registro da amostra](../results/published/semantic-mof13b-v1.json).

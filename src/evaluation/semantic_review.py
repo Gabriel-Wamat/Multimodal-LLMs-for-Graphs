@@ -47,11 +47,23 @@ def prepare(dataset, run_ids, destination):
         folder = ROOT / "results" / name
         record = json.loads((folder / "run.json").read_text())
         complete = json.loads((folder / "complete.json").read_text())
+        if record.get("training_kind") == "full_sft":
+            aligned = (
+                record.get("dataset", "pilot50_v1") == dataset
+                and record["labels_sha256"] == split["labels_sha256"]
+            )
+        else:
+            # The official baseline pinned its labels through the split manifest.
+            baseline = ROOT / "configs/baseline_mof.json"
+            aligned = (
+                dataset == "pilot50_v1"
+                and record.get("smoke") is False
+                and record.get("config") == json.loads(baseline.read_text())
+                and record.get("split_sha256") == sha(base / "split.json")
+            )
         if (
-            record.get("training_kind") != "full_sft"
-            or record.get("dataset", "pilot50_v1") != dataset
+            not aligned
             or record["inputs_sha256"] != split["inputs_sha256"]
-            or record["labels_sha256"] != split["labels_sha256"]
             or sha(folder / "predictions.jsonl") != complete["predictions_sha256"]
         ):
             raise ValueError(f"Incompatible run: {name}")
@@ -86,6 +98,7 @@ def prepare(dataset, run_ids, destination):
                 {
                     "run": name,
                     "automatic_correct": accepted,
+                    "strict_correct": grade(q, raw)[0],
                     "automatic_rule": reason,
                     "id": qid,
                     "predictions_sha256": complete["predictions_sha256"],
