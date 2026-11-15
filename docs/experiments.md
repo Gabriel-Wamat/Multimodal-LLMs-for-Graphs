@@ -101,3 +101,16 @@ python3 scripts/local/watch_alignment.py \
 ```
 
 O observador consulta fila, progresso e utilização da GPU, copia artefatos publicados e registra hashes dos checkpoints locais. Encerra após conclusão, parada sem conclusão, três erros consecutivos ou o limite de tempo configurado; nunca cancela nem reenvia o treino. A cópia para outra máquina depende de ela permanecer ligada e conectada. Uma cópia no mesmo armazenamento do cluster não substitui essa cópia independente.
+
+### Comparação dos projetores na mesma campanha
+
+Uma repetição do treino de CLIP duplicado pode selecionar pesos diferentes dos usados para a pontuação histórica. Para avaliar a contribuição do DINOv3, associe o controle e a fusão pelo protocolo de treino, revisões dos pesos de base, fontes de código e divisão dos dados. Use um identificador novo para a inferência do controle recuperado. O notebook apresenta os dois acertos automáticos sobre as mesmas perguntas, a diferença em pontos percentuais e seu intervalo por família.
+
+A partir da cópia do código usada para treinar os projetores, execute o comando abaixo depois da avaliação da fusão. O último argumento aponta para o projeto com o comparador e os mesmos registros de execução.
+
+```bash
+sbatch scripts/apuana/evaluate_projector_control.sh qwen \
+    <treino-clip-duplicado> <avaliacao-controle> <avaliacao-fusao> <projeto>
+```
+
+O comparador pode recalcular o contraste de avaliações já concluídas usando `python -m src.evaluation.compare_projector_pair --model qwen --control results/<controle> --fusion results/<fusao>`. Ele confere os hashes do checkpoint registrados no treino e na avaliação. O relatório indica também se o arquivo de pesos ainda estava disponível para verificação direta.
