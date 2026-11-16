@@ -4,6 +4,8 @@ Pipeline de leitura de gráficos com modelos multimodais. A partir de CSVs e per
 
 A [arquitetura e os modelos](docs/architecture.md) estão documentados no núcleo. Os comandos abaixo partem da raiz do repositório.
 
+Para testar seu próprio PNG com um checkpoint treinado, siga o [exemplo de inferência com uma imagem](#responder-uma-pergunta-sobre-um-png). Para medir a acurácia nas mesmas perguntas dos experimentos, use a [avaliação do piloto](#avaliar-o-checkpoint-no-piloto).
+
 ## Instalação
 
 Para visualizar resultados e preparar dados, use Python 3.10–3.12, sem necessidade de GPU. Instale o [uv](https://docs.astral.sh/uv/getting-started/installation/) e sincronize o ambiente:
@@ -76,7 +78,64 @@ bash scripts/control.sh run --model llava --run-id control-pilot-llava
 
 Use `--model qwen` e IDs próprios para o Qwen. Resoluções, seeds, revisões e braços estão em `configs/`; os [controles CLIP/DINOv3](docs/CONTROLE_MOF_DINOV3.md) detalham as inicializações e os requisitos de VRAM.
 
-Cada execução grava respostas em `results/<run-id>/predictions.jsonl` e métricas em `results/<run-id>/scored/metrics.json`. Os manifestos registram configuração, fontes e hashes. Para retomar uma execução interrompida, repita o comando com o mesmo ID e `--resume`; o executor exige as mesmas entradas, pesos, código e configuração. Use outro ID para um novo experimento.
+O piloto dos controles sem ajuste grava respostas em `results/<run-id>/predictions.jsonl` e métricas em `results/<run-id>/scored/metrics.json`. Os manifestos registram configuração, fontes e hashes. Para retomar uma execução interrompida, repita o comando com o mesmo ID e `--resume`; o executor exige as mesmas entradas, pesos, código e configuração. Use outro ID para um novo experimento.
+
+## Responder uma pergunta sobre um PNG
+
+Para o LLaVA ou Qwen treinado em duas etapas, chame `GraphSFTModel.answer(item)`. A função recebe um dicionário com três campos e devolve uma string. O exemplo usa uma pergunta real do piloto. Para testar outro gráfico, troque o caminho, a pergunta e o formato esperado. O gabarito só entra na avaliação.
+
+Execute na raiz do projeto em um nó Linux com GPU CUDA compatível com BF16, com o ambiente `.venv-control` e os pesos base preparados conforme a seção anterior. Use uma execução concluída em `experiments/full_sft/<training-run>/` que contenha `run.json`, `best.json`, `complete.json` e `best-model.pt`. O download dos pesos base e dos encoders é separado do checkpoint ajustado, que fica no Apuana. O exemplo usa o Qwen com CLIP + DINOv3 da primeira semente.
+
+```bash
+export TRAINING_RUN=graph-full-sft-v1-20261114-qwen-clip_dino
+.venv-control/bin/python - <<'PYTHON'
+import json
+import os
+from pathlib import Path
+
+import torch
+from src.models.control.artifacts import digest
+from src.training.graph_sft import GraphSFTModel
+
+run = Path("experiments/full_sft") / os.environ["TRAINING_RUN"]
+record = json.loads((run / "run.json").read_text())
+best = json.loads((run / "best.json").read_text())
+checkpoint = run / "best-model.pt"
+if not (run / "complete.json").is_file() or digest(checkpoint) != best["sha256"]:
+    raise RuntimeError("Confira a conclusão do treino e o hash de best-model.pt")
+
+model = GraphSFTModel(
+    record["model"], record["base_config"], record["arm"], record["config"]["max_length"]
+)
+state = torch.load(checkpoint, map_location="cpu", weights_only=True)
+model.load_weights(state)
+del state
+model.components.eval()
+
+item = {
+    "image": "data/processed/graficos/BAR-001.png",
+    "pergunta": "Qual é o valor aproximado da barra Grupo F?",
+    "formato": "número",
+}
+print(model.answer(item))
+PYTHON
+```
+
+`image` aceita um caminho absoluto ou relativo à raiz do repositório. Em `formato`, use a descrição que o modelo deve seguir, como `número`, `número inteiro` ou `categoria`. A função abre a imagem, monta o prompt em português e decodifica a resposta. Para várias perguntas, carregue o modelo uma vez e chame `model.answer(item)` para cada entrada. [Implementação da inferência](src/training/graph_sft.py) · [Construção do prompt](src/evaluation/run.py)
+
+## Avaliar o checkpoint no piloto
+
+Com o piloto preparado e a variável `TRAINING_RUN` do exemplo anterior, este comando carrega o checkpoint selecionado, responde às 3.173 perguntas e compara as respostas com os gabaritos:
+
+```bash
+.venv-control/bin/python -m src.evaluation.full_sft \
+  --training-run "$TRAINING_RUN" --dataset pilot50_v1 --run-id teste-qwen-fusao-01
+
+head -n 1 results/teste-qwen-fusao-01/predictions.jsonl
+cat results/teste-qwen-fusao-01/metrics.json
+```
+
+Cada linha de `predictions.jsonl` traz o ID da pergunta e o texto gerado no campo `response`. Em `metrics.json`, consulte `primary_binary_aliases_v2` para a métrica que aceita equivalência entre Sim/Não e Yes/No. O arquivo `details.json` traz a correção por pergunta. Use um novo `--run-id` para outra avaliação ou acrescente `--resume` para continuar a mesma. [Avaliador do checkpoint treinado](src/evaluation/full_sft.py)
 
 ## Treinamento nos gráficos
 
