@@ -1,5 +1,7 @@
 # Preparação, treinamento e avaliação
 
+A ablação de projetores descrita abaixo é uma série histórica separada. A nova adaptação com **decoder completo treinável na segunda etapa** está documentada em [Treinamento completo em duas etapas](graph_full_sft.md).
+
 Instale os ambientes, importe os dados e gere imagens/piloto antes dos comandos abaixo. Novas execuções precisam de IDs próprios. Artefatos históricos não fazem parte do checkout público.
 
 ## Treino e desenvolvimento
@@ -73,3 +75,42 @@ uv run --locked python -m src.data.pairs
 Confirme o resultado técnico e a inspeção visual antes de executar sem `--smoke` com outro ID. Cada modelo responde independentemente a A e B nas condições original, recortes e transcrição. Os geradores preservam hashes e não aceitam sobrescrita divergente. Para os lançadores SLURM, consulte [o guia do cluster](../scripts/apuana/README.md).
 
 A extração de representações é o módulo `src.evaluation.paired.representations`. As análises por par e por família estão em `src.evaluation.paired.score`, `analyze` e `hypotheses`; consulte seus argumentos com `--help`. Mantenha calibração dos limiares no desenvolvimento e os mesmos pares entre modelos/condições.
+
+## Campanha pareada e cópias de recuperação
+
+Em uma alocação SLURM, a partir de uma cópia congelada do código, o launcher abaixo executa os dois braços sequencialmente na mesma GPU. `CHECKPOINT_BACKUP_ROOT` deve apontar para uma pasta privada fora do projeto:
+
+```bash
+.venv-control/bin/python scripts/apuana/run_alignment_pair.py \
+  --model qwen --run-prefix alignment-qwen-campaign01 \
+  --checks-prefix alignment-check-v1 \
+  --backup-root "$CHECKPOINT_BACKUP_ROOT"
+```
+
+O launcher interrompe a sequência se um braço falhar e exige IDs novos. Para retomar, use o executor canônico com `--resume`, mantendo o snapshot, os dados e a configuração da execução original. Arquivos temporários não são checkpoints de recuperação.
+
+A validação registra progresso a cada 25 perguntas; o treino registra a média parcial de loss e o contador a cada dez atualizações. Os checkpoints continuam sendo publicados nas fronteiras já definidas pelo protocolo. Esses registros parciais não substituem a avaliação completa.
+
+Para observar e copiar os artefatos para outra máquina:
+
+```bash
+python3 scripts/local/watch_alignment.py \
+  --host "$CLUSTER_HOST" --remote-root "$REMOTE_PROJECT_ROOT" \
+  --run-prefix alignment-qwen-campaign01 --model qwen \
+  --job-id "$TRAINING_JOB_ID" --backup-root experiments/training
+```
+
+O observador consulta fila, progresso e utilização da GPU, copia artefatos publicados e registra hashes dos checkpoints locais. Encerra após conclusão, parada sem conclusão, três erros consecutivos ou o limite de tempo configurado; nunca cancela nem reenvia o treino. A cópia para outra máquina depende de ela permanecer ligada e conectada. Uma cópia no mesmo armazenamento do cluster não substitui essa cópia independente.
+
+### Comparação dos projetores na mesma campanha
+
+Uma repetição do treino de CLIP duplicado pode selecionar pesos diferentes dos usados para a pontuação histórica. Para avaliar a contribuição do DINOv3, associe o controle e a fusão pelo protocolo de treino, revisões dos pesos de base, fontes de código e divisão dos dados. Use um identificador novo para a inferência do controle recuperado. O notebook apresenta os dois acertos automáticos sobre as mesmas perguntas, a diferença em pontos percentuais e seu intervalo por família.
+
+A partir da cópia do código usada para treinar os projetores, execute o comando abaixo depois da avaliação da fusão. O último argumento aponta para o projeto com o comparador e os mesmos registros de execução.
+
+```bash
+sbatch scripts/apuana/evaluate_projector_control.sh qwen \
+    <treino-clip-duplicado> <avaliacao-controle> <avaliacao-fusao> <projeto>
+```
+
+O comparador pode recalcular o contraste de avaliações já concluídas usando `python -m src.evaluation.compare_projector_pair --model qwen --control results/<controle> --fusion results/<fusao>`. Ele confere os hashes do checkpoint registrados no treino e na avaliação. O relatório indica também se o arquivo de pesos ainda estava disponível para verificação direta.

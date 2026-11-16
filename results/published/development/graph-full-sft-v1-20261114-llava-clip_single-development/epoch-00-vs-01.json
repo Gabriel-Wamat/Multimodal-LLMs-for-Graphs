@@ -1,0 +1,45 @@
+{
+  "scope": "development only; epoch 0 follows caption alignment",
+  "run": "graph-full-sft-v1-20261114-llava-clip_single",
+  "epochs": [
+    {
+      "epoch": 0,
+      "correct": 81,
+      "auto_error_groups": {
+        "outside_numeric_interval": 196,
+        "answer_mismatch_semantics_unreviewed": 268,
+        "correct": 81,
+        "invalid_numeric_format": 66,
+        "invalid_format": 21
+      },
+      "predictions_sha256": "473adbe8b9c9187175dcea5c31509d6e3a36ff2ff5b771e36a06fd9b4dd26fe7",
+      "accuracy": 0.1281645569620253
+    },
+    {
+      "epoch": 1,
+      "correct": 146,
+      "auto_error_groups": {
+        "outside_numeric_interval": 222,
+        "answer_mismatch_semantics_unreviewed": 255,
+        "correct": 146,
+        "invalid_numeric_format": 9
+      },
+      "predictions_sha256": "bfcfc8318991c0502fd4090cd11077ab4ce4ca5b958d63e27a0c588af402f56b",
+      "accuracy": 0.2310126582278481
+    }
+  ],
+  "n": 632,
+  "gained": 137,
+  "lost": 72,
+  "unchanged_correct": 9,
+  "unchanged_error": 414,
+  "paired": {
+    "delta_accuracy": 0.10284810126582279,
+    "delta_percentage_points": 10.284810126582279,
+    "ci95_graph_bootstrap": [
+      0.07277906999960068,
+      0.13270667106605075
+    ],
+    "unit": "same questions; graph-clustered, stratified type/style; exploratory"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "dataset": "pilot50_v1",
+  "scope": "descriptive sample: one fixed question per chart type/style",
+  "reviewed_sheet_sha256": "49d55224f27561fc65cc2fda1e78322a8109b2e0b2ae08db86f7e94e6016731d",
+  "protocol_sha256": "bea4618b7137bccda0a6b7fda027fff8fcab6708bcac216a85a21c308450f7cf",
+  "runs": {
+    "mof13b-pilot50-v1": {
+      "reviewed": 36,
+      "verdicts": {
+        "correta": 6,
+        "incorreta": 30,
+        "parcial": 0,
+        "indeterminada": 0
+      },
+      "semantic_correct_fraction_in_sample": 0.16666666666666666,
+      "automatic_by_semantic": {
+        "auto_0/incorreta": 30,
+        "auto_0/correta": 1,
+        "auto_1/correta": 5
+      },
+      "strict_hits": 1,
+      "primary_hits": 5
+    }
+  },
+  "review_method": "Codex, revisor único com identidade do modelo conhecida"
+}

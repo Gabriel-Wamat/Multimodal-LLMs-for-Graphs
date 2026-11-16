@@ -1,0 +1,42 @@
+{
+  "scope": "development only; epoch 0 follows caption alignment",
+  "run": "graph-full-sft-v1-20261114-llava-clip_single",
+  "epochs": [
+    {
+      "epoch": 2,
+      "correct": 148,
+      "auto_error_groups": {
+        "outside_numeric_interval": 226,
+        "answer_mismatch_semantics_unreviewed": 258,
+        "correct": 148
+      },
+      "predictions_sha256": "0cde07925fbf91f5327fc293775fbf92c109d5a4bd640594b71475e302437eea",
+      "accuracy": 0.23417721518987342
+    },
+    {
+      "epoch": 3,
+      "correct": 153,
+      "auto_error_groups": {
+        "outside_numeric_interval": 235,
+        "answer_mismatch_semantics_unreviewed": 244,
+        "correct": 153
+      },
+      "predictions_sha256": "e79f896c2d41af5b031d7e77342c0f55cafa6186de20a1179fd1b52056af116a",
+      "accuracy": 0.24208860759493672
+    }
+  ],
+  "n": 632,
+  "gained": 49,
+  "lost": 44,
+  "unchanged_correct": 104,
+  "unchanged_error": 435,
+  "paired": {
+    "delta_accuracy": 0.007911392405063292,
+    "delta_percentage_points": 0.7911392405063291,
+    "ci95_graph_bootstrap": [
+      -0.014308426073131956,
+      0.030285809218115082
+    ],
+    "unit": "same questions; graph-clustered, stratified type/style; exploratory"
+  }
+}

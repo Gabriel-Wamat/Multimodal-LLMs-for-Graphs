@@ -1,15 +1,17 @@
 # Multimodal LLMs for Graphs
 
-Pipeline de leitura de gráficos com modelos multimodais. A partir de CSVs e perguntas com gabarito, o projeto gera imagens, executa inferência e produz previsões, métricas e relatórios. Compara o I-MoF oficial, LLaVA-1.5-7B e Qwen2-VL-2B, incluindo a combinação de representações CLIP e DINOv3 e o ajuste dos projetores visuais.
+Pipeline de leitura de gráficos com modelos multimodais. A partir de CSVs e perguntas com gabarito, o projeto gera imagens, executa inferência e produz previsões, métricas e relatórios. Compara o I-MoF oficial, LLaVA-1.5-7B e Qwen2-VL-2B, para medir quanto o DINOv3 acrescenta à leitura de gráficos quando combinado com CLIP. O projeto avalia modelos sem ajuste, com ajuste apenas dos projetores e com treinamento dos projetores e do modelo de linguagem.
 
 A [arquitetura e os modelos](docs/architecture.md) estão documentados no núcleo. Os comandos abaixo partem da raiz do repositório.
+
+Para testar seu próprio PNG com um checkpoint treinado, siga o [exemplo de inferência com uma imagem](#responder-uma-pergunta-sobre-um-png). Para medir a acurácia nas mesmas perguntas dos experimentos, use a [avaliação do piloto](#avaliar-o-checkpoint-no-piloto).
 
 ## Instalação
 
 Para visualizar resultados e preparar dados, use Python 3.10–3.12, sem necessidade de GPU. Instale o [uv](https://docs.astral.sh/uv/getting-started/installation/) e sincronize o ambiente:
 
 ```bash
-git clone https://github.com/Gabriel-Wamat/Multimodal-LLMs-for-Graphs.git
+git clone --branch codex/two-stage-graph-training https://github.com/Gabriel-Wamat/Multimodal-LLMs-for-Graphs.git
 cd Multimodal-LLMs-for-Graphs
 uv sync --locked --extra notebooks --extra dev
 uv pip check
@@ -76,9 +78,72 @@ bash scripts/control.sh run --model llava --run-id control-pilot-llava
 
 Use `--model qwen` e IDs próprios para o Qwen. Resoluções, seeds, revisões e braços estão em `configs/`; os [controles CLIP/DINOv3](docs/CONTROLE_MOF_DINOV3.md) detalham as inicializações e os requisitos de VRAM.
 
-Cada execução grava respostas em `results/<run-id>/predictions.jsonl` e métricas em `results/<run-id>/scored/metrics.json`. Os manifestos registram configuração, fontes e hashes. Para retomar uma execução interrompida, repita o comando com o mesmo ID e `--resume`; o executor exige as mesmas entradas, pesos, código e configuração. Use outro ID para um novo experimento.
+O piloto dos controles sem ajuste grava respostas em `results/<run-id>/predictions.jsonl` e métricas em `results/<run-id>/scored/metrics.json`. Os manifestos registram configuração, fontes e hashes. Para retomar uma execução interrompida, repita o comando com o mesmo ID e `--resume`; o executor exige as mesmas entradas, pesos, código e configuração. Use outro ID para um novo experimento.
 
-## Treinamento dos projetores
+## Responder uma pergunta sobre um PNG
+
+Para o LLaVA ou Qwen treinado em duas etapas, chame `GraphSFTModel.answer(item)`. A função recebe um dicionário com três campos e devolve uma string. O exemplo usa uma pergunta real do piloto. Para testar outro gráfico, troque o caminho, a pergunta e o formato esperado. O gabarito só entra na avaliação.
+
+Execute na raiz do projeto em um nó Linux com GPU CUDA compatível com BF16, com o ambiente `.venv-control` e os pesos base preparados conforme a seção anterior. Use uma execução concluída em `experiments/full_sft/<training-run>/` que contenha `run.json`, `best.json`, `complete.json` e `best-model.pt`. O download dos pesos base e dos encoders é separado do checkpoint ajustado, que fica no Apuana. O exemplo usa o Qwen com CLIP + DINOv3 da primeira semente.
+
+```bash
+export TRAINING_RUN=graph-full-sft-v1-20261114-qwen-clip_dino
+.venv-control/bin/python - <<'PYTHON'
+import json
+import os
+from pathlib import Path
+
+import torch
+from src.models.control.artifacts import digest
+from src.training.graph_sft import GraphSFTModel
+
+run = Path("experiments/full_sft") / os.environ["TRAINING_RUN"]
+record = json.loads((run / "run.json").read_text())
+best = json.loads((run / "best.json").read_text())
+checkpoint = run / "best-model.pt"
+if not (run / "complete.json").is_file() or digest(checkpoint) != best["sha256"]:
+    raise RuntimeError("Confira a conclusão do treino e o hash de best-model.pt")
+
+model = GraphSFTModel(
+    record["model"], record["base_config"], record["arm"], record["config"]["max_length"]
+)
+state = torch.load(checkpoint, map_location="cpu", weights_only=True)
+model.load_weights(state)
+del state
+model.components.eval()
+
+item = {
+    "image": "data/processed/graficos/BAR-001.png",
+    "pergunta": "Qual é o valor aproximado da barra Grupo F?",
+    "formato": "número",
+}
+print(model.answer(item))
+PYTHON
+```
+
+`image` aceita um caminho absoluto ou relativo à raiz do repositório. Em `formato`, use a descrição que o modelo deve seguir, como `número`, `número inteiro` ou `categoria`. A função abre a imagem, monta o prompt em português e decodifica a resposta. Para várias perguntas, carregue o modelo uma vez e chame `model.answer(item)` para cada entrada. [Implementação da inferência](src/training/graph_sft.py) · [Construção do prompt](src/evaluation/run.py)
+
+## Avaliar o checkpoint no piloto
+
+Com o piloto preparado e a variável `TRAINING_RUN` do exemplo anterior, este comando carrega o checkpoint selecionado, responde às 3.173 perguntas e compara as respostas com os gabaritos:
+
+```bash
+.venv-control/bin/python -m src.evaluation.full_sft \
+  --training-run "$TRAINING_RUN" --dataset pilot50_v1 --run-id teste-qwen-fusao-01
+
+head -n 1 results/teste-qwen-fusao-01/predictions.jsonl
+cat results/teste-qwen-fusao-01/metrics.json
+```
+
+Cada linha de `predictions.jsonl` traz o ID da pergunta e o texto gerado no campo `response`. Em `metrics.json`, consulte `primary_binary_aliases_v2` para a métrica que aceita equivalência entre Sim/Não e Yes/No. O arquivo `details.json` traz a correção por pergunta. Use um novo `--run-id` para outra avaliação ou acrescente `--resume` para continuar a mesma. [Avaliador do checkpoint treinado](src/evaluation/full_sft.py)
+
+## Treinamento nos gráficos
+
+A adaptação do I-MoF usa os gráficos do projeto em duas etapas. Primeiro, 277 pares de gráfico e descrição ensinam os projetores a alinhar as representações visuais ao modelo de linguagem. Depois, 2.475 perguntas com gabarito supervisionam o ajuste do decoder completo, da camada de saída e dos projetores. CLIP e DINOv3 permanecem congelados nas duas etapas.
+
+Cada base, LLaVA ou Qwen, tem três configurações comparáveis: CLIP único, CLIP duplicado e CLIP + DINOv3. As 632 perguntas de desenvolvimento selecionam o checkpoint de cada treino. A avaliação usa as 3.173 perguntas do piloto e, separadamente, 1.080 perguntas sobre 360 gráficos inéditos. Os scripts, os requisitos de GPU, as sementes e o critério de seleção estão no [protocolo de treinamento no Apuana](docs/graph_full_sft.md).
+
+### Controle com ajuste apenas dos projetores
 
 O treino ajusta somente os projetores visuais, com encoders e modelo de linguagem congelados. Prepare os splits e conclua os diagnósticos de gradiente, atualização, recarga e retomada conforme o [guia de experimentos](docs/experiments.md). Com esses pré-requisitos aprovados:
 
@@ -107,16 +172,24 @@ O comando exibe os jobs sem submetê-los. O guia explica como incluir a prepara�
 
 ## Resultados verificados
 
-O [resumo publicado](results/published/README.md) registra as evidências coletadas em **03/11/2026**, com hashes de origem e limites de interpretação. Os valores abaixo são acurácias por pergunta no piloto de **360 gráficos e 3.173 perguntas**; não representam o estado atual dos jobs.
+**Como medimos acerto e erro.** Cada pergunta vale 1 se a resposta passa na regra do gabarito e 0 caso contrário. Valores aproximados usam os limites numéricos publicados. Categorias e listas exigem rótulos normalizados e respeitam a ordem solicitada. A regra principal aceita `Yes/No` nas perguntas `Sim/Não`. Por exemplo, para um gabarito numérico de 85, `85` pontua e `A barra vale 85.` recebe zero por formato. Assim, a taxa de erro automático inclui respostas cujo sentido pode estar correto. Nos pares A/B, só há acerto quando as duas respostas estão corretas. [Exemplos e regras de avaliação](docs/evaluation.md)
 
-| Modelo / configuração | Antes do ajuste | Após ajuste dos projetores |
-|---|---:|---:|
-| LLaVA-1.5-7B nativo | 8,89% | — |
-| LLaVA-1.5-7B nativo duplicado | 9,90% | — |
-| LLaVA-1.5-7B, CLIP duplicado | 9,90% | **27,92% (886/3.173)** |
-| LLaVA-1.5-7B, CLIP + DINOv3 | 0,00% | **24,27% (770/3.173)** |
-| Qwen2-VL-2B, CLIP duplicado | Sem resultado final confirmado | **24,30% (771/3.173)** |
-| Qwen2-VL-2B, CLIP + DINOv3 | Sem resultado final confirmado | Sem avaliação final confirmada |
+**Acerto semântico na amostra revisada.** Nas mesmas 36 perguntas, a revisão identificou 6 respostas corretas do I-MoF, 14 do LLaVA com CLIP duplicado, 10 do LLaVA com fusão e 13 do Qwen com CLIP duplicado histórico. Nos três modelos ajustados apenas pelos projetores, os julgamentos coincidiram com a regra automática em cada resposta auditada. No I-MoF, a tradução correta de um rótulo de categoria recuperou um acerto além dos cinco aceitos pela regra com equivalência de sim/não. A revisão teve um revisor. [Amostra, critérios e contagens](docs/evaluation.md)
+
+O piloto usa 360 gráficos e as mesmas 3.173 perguntas em cada configuração. A tabela reúne os resultados históricos de projetores e os checkpoints disponíveis da primeira semente do treino em duas etapas. A última coluna inclui a atualização do decoder. [Resultados e registros das comparações](results/published/README.md)
+
+| Modelo / configuração | Sem ajuste | Apenas projetores | Treino em duas etapas |
+|---|---:|---:|---:|
+| LLaVA-1.5-7B nativo | 8,89% | — | — |
+| LLaVA-1.5-7B nativo duplicado | 9,90% | — | — |
+| LLaVA-1.5-7B, CLIP único externo | — | — | 24,52% (778) |
+| LLaVA-1.5-7B, CLIP duplicado | 9,90% | 27,92% (886) | Pendente |
+| LLaVA-1.5-7B, CLIP + DINOv3 | 0,00% | 24,27% (770) | Pendente |
+| Qwen2-VL-2B, CLIP único | — | — | 22,60% (717) |
+| Qwen2-VL-2B, CLIP duplicado | 5,48% (174) | 24,30% (771) | 24,33% (772) |
+| Qwen2-VL-2B, CLIP + DINOv3 | 0,00% (0) | Avaliação pendente | 24,11% (765) |
+
+Os números entre parênteses são acertos sobre 3.173 perguntas. Com CLIP duplicado, a diferença entre o treino completo e o ajuste histórico de projetores foi de +0,03 ponto percentual, com intervalo de 95% de −1,45 a +1,52 por reamostragem das famílias. No treino completo, 276 respostas passaram de erro para acerto e 275 passaram de acerto para erro em relação ao checkpoint de projetores. Os dois protocolos diferem nos exemplos de alinhamento, na taxa de aprendizado e nos componentes treináveis. [Comparação pareada do Qwen](results/published/training_stages/20261115-qwen-pilot50_v1.json)
 
 O I-MoF oficial de 13B obteve **119/3.173 (3,75%)** pelo corretor original. O diagnóstico posterior que aceita Yes/No como Sim/Não resulta em **311/3.173 (9,80%)**, preservando a pontuação original. A tarefa dos pares A/B tem outra regra de acerto e aparece separadamente no resumo.
 
@@ -128,7 +201,7 @@ CLIP duplicado controla o comprimento da sequência visual, mas não o número d
 |---|---|---|
 | `.venv` | Análise, dados e notebooks; Python 3.10–3.12 | `pyproject.toml` e `uv.lock` |
 | `.venv-mof` | I-MoF oficial; Linux/Python 3.10 | `configs/requirements-mof.txt` e `constraints-mof.txt` |
-| `.venv-control` | Controles e ajuste dos projetores; Linux/Python 3.10 | `configs/requirements-control.txt` |
+| `.venv-control` | Controles, projetores e treino em duas etapas em Linux/Python 3.10 | `configs/requirements-control.txt` |
 
 Para conferir o código e os arquivos versionados, sem carregar os modelos completos:
 
@@ -147,7 +220,7 @@ configs/             revisões dos modelos e parâmetros dos experimentos
 src/data/            renderização, seleção, auditoria e construção de pares
 src/models/          checkpoints oficiais, encoders e intercalação visual
 src/evaluation/      inferência, corretores, métricas e análise dos pares
-src/training/        ajuste dos projetores e retomada de checkpoints
+src/training/        alinhamento visual, treino do decoder e retomada de checkpoints
 scripts/local/       preparação, relatórios e monitoramento configurável
 scripts/apuana/      instalação e execução em SLURM
 notebooks/           painel de resultados, exploração e inspeção visual

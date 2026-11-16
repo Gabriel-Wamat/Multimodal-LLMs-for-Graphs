@@ -1,0 +1,33 @@
+{
+  "dataset": "development",
+  "model": "qwen",
+  "arm": "clip_double",
+  "epoch": 2,
+  "n": 632,
+  "labels_sha256": "4bb45424c831143dd33dd53dd1ca184a2f540a2e53f646fa0110be6b1900ecb2",
+  "recipes": {
+    "projectors": {
+      "run": "alignment-v1-recovery-20261114-qwen-clip_double",
+      "correct": 124,
+      "predictions_sha256": "bc79bc67eb774fd8a93dc7f21c44edb3a5bd99d37b17c1009a709af141fe5d51"
+    },
+    "full": {
+      "run": "graph-full-sft-v1-20261114-qwen-clip_double",
+      "correct": 150,
+      "predictions_sha256": "e2e16347aadb322e254f1db5532161da48957854253d98a2304cfcae97242d7c"
+    }
+  },
+  "projectors_only_correct": 64,
+  "full_only_correct": 90,
+  "both_correct": 60,
+  "both_wrong": 418,
+  "paired": {
+    "delta_accuracy": 0.04113924050632911,
+    "delta_percentage_points": 4.113924050632911,
+    "ci95_graph_bootstrap": [
+      0.0142399439078529,
+      0.06825396825396825
+    ],
+    "unit": "same questions; graph-clustered, stratified type/style; exploratory"
+  }
+}

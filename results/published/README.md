@@ -51,3 +51,72 @@ python scripts/local/export_public_results.py --snapshot-date YYYY-MM-DD
 ```
 
 Esse comando exige os pacotes privados de execução em suas pastas correspondentes. Uma cópia limpa do GitHub já contém o resumo e pode visualizá-lo sem eles. A publicação do código não repetiu inferência CUDA ou treinamento completo.
+
+## Treino em duas etapas
+
+Ao concluir as avaliações dos três controles de uma base, execute na raiz do projeto:
+
+```bash
+.venv-control/bin/python -m scripts.local.export_full_sft_results \
+  --prefix <campanha> --model qwen --dataset pilot50_v1
+```
+
+Use `confirmation_v1` para o conjunto independente. Cada exportação confere os hashes, corrige as respostas com o gabarito e registra em `results/published/full_sft/` os acertos, denominadores, intervalos de confiança, erros por formato, custo de inferência e diferenças entre braços. O notebook lê esses resumos em um checkout público.
+
+### Qwen após o treino do decoder e dos projetores
+
+Os três checkpoints concluíram o piloto de 3.173 perguntas na primeira semente. Para a revisão semântica, o Codex examinou as mesmas 36 perguntas por configuração com a identidade de cada resposta oculta. Respostas idênticas à mesma pergunta receberam o mesmo veredito. Houve 78 julgamentos distintos e um revisor.
+
+| Configuração | Acerto automático no piloto | Acerto semântico na amostra |
+|---|---:|---:|
+| CLIP único | 717/3.173 (22,60%) | 14/36 (38,89%) |
+| CLIP duplicado | 772/3.173 (24,33%) | 12/36 (33,33%) |
+| CLIP + DINOv3 | 765/3.173 (24,11%) | 12/36 (33,33%) |
+
+Na amostra, o corretor e o revisor deram o mesmo veredito nas 108 respostas. Um exemplo de erro compartilhado foi situar um cruzamento de séries em 2003 quando o primeiro ano que satisfaz a comparação é 2004. O ganho da fusão frente a CLIP duplicado no piloto foi de −0,22 ponto percentual, com intervalo de 95% de −1,11 a +0,67 por reamostragem das famílias de gráficos. [Métricas do piloto](full_sft/graph-full-sft-v1-20261114-qwen-pilot50_v1.json) · [Contagens da revisão semântica](semantic-qwen-full-sft-v1.json)
+
+### Comparação com o I-MoF oficial
+
+Nas mesmas 3.173 perguntas, aplicando a todos os modelos a regra que aceita Sim/Não em português ou inglês, o I-MoF de 13B acertou 311 (9,80%). A tabela mostra quantas perguntas cada modelo acertou sozinho e a diferença de acurácia.
+
+| Configuração do Qwen | Só Qwen acertou | Só I-MoF acertou | Diferença em pp [IC95% por família] |
+|---|---:|---:|---:|
+| CLIP único | 643 | 237 | +12,80 [11,08 a 14,53] |
+| CLIP duplicado | 541 | 80 | +14,53 [13,10 a 15,86] |
+| CLIP + DINOv3 | 541 | 87 | +14,31 [12,95 a 15,62] |
+
+O Qwen recebeu treinamento supervisionado em gráficos. A arquitetura e o treinamento também diferem entre Qwen e I-MoF, o que limita a atribuição do ganho a um componente específico. Os intervalos cobrem a variação entre famílias de gráficos na primeira execução. [Comparação pareada e resultados por tipo de gráfico](official_comparison/graph-full-sft-v1-20261114-qwen.json)
+
+Para recalcular com os artefatos completos da campanha, execute `python -m src.evaluation.compare_official_baseline --prefix graph-full-sft-v1-20261114 --model qwen`.
+
+### Controle usando apenas a pergunta
+
+Uma regra que consulta as 2.475 respostas de treino acertou **684/3.173 (21,56%)** no piloto e **135/632 (21,36%)** no desenvolvimento. Para cada pergunta, a regra escolhe a resposta mais frequente no mesmo formato e enunciado normalizado. Se o enunciado é novo, usa a resposta mais frequente do formato. Os empates seguem ordem lexical. No piloto, 2.607 perguntas tinham enunciado e formato já vistos, e 566 usaram a segunda regra. [Contagens por tipo e formato](question-prior-v1.json)
+
+| Qwen após o ajuste completo | Ganho sobre a regra no piloto | IC95% por família |
+|---|---:|---:|
+| CLIP único | +1,04 pp | −0,91 a +2,88 |
+| CLIP duplicado | +2,77 pp | +1,35 a +4,25 |
+| CLIP + DINOv3 | +2,55 pp | +1,11 a +4,04 |
+
+Este diagnóstico exploratório usa as mesmas perguntas e a mesma correção automática. A diferença inclui o que o modelo pode aprender sobre o texto da pergunta e sobre o gráfico. Para reproduzir com os artefatos da campanha, execute `python -m src.evaluation.question_prior --prefix graph-full-sft-v1-20261114 --model qwen`. [Comparações pareadas](question_prior/graph-full-sft-v1-20261114-qwen.json)
+
+### Primeira validação do LLaVA com CLIP único
+
+Nas 632 perguntas de desenvolvimento, o alinhamento por descrições produziu 81 acertos (12,82%). Após a primeira época de ajuste do decoder e do projetor, houve 146 (23,10%). Das mesmas respostas, 137 passaram de erro para acerto e 72 de acerto para erro. A diferença foi de +10,28 pp, com IC95% de +7,28 a +13,27 por reamostragem de gráficos. As respostas rejeitadas por formato passaram de 87 para 9. [Contagens pareadas](development/graph-full-sft-v1-20261114-llava-clip_single-development/epoch-00-vs-01.json)
+
+Nas 12 perguntas de dispersão que pediam a direção da relação entre X e Y com as mesmas três opções, o modelo respondeu “sobe” em todos os casos após essa época e acertou cinco. Na época zero, três respostas expressavam a direção correta em uma frase e receberam zero pelo formato. Esse recorte ajuda a interpretar os ganhos automáticos de desenvolvimento.
+
+### Qwen com CLIP + DINOv3 na primeira época de perguntas e respostas
+
+Conferimos os hashes do conjunto de desenvolvimento e recalculamos as duas validações sobre as mesmas 632 perguntas. O ajuste apenas dos projetores acertou **98/632 (15,51%)**. A receita em duas etapas, com alinhamento por descrições seguido de ajuste dos projetores e do modelo de linguagem, acertou **133/632 (21,04%)**. Foram 51 acertos compartilhados, 47 exclusivos do ajuste dos projetores e 82 exclusivos da receita em duas etapas. A diferença de **+5,54 pp** tem IC95% exploratório de **+3,48 a +7,60 pp** por reamostragem pareada de gráficos, estratificada por tipo e estilo. Essa comparação de desenvolvimento mede a diferença entre as receitas completas na primeira época de perguntas e respostas. A avaliação dos checkpoints selecionados usa o piloto de 3.173 perguntas.
+
+### Controle sem imagem nos gráficos inéditos
+
+A regra fixada no piloto acertou **211/1.080 (19,54%)** em 360 gráficos de confirmação, com IC95% de 17,59% a 21,39% por reamostragem dos gráficos. Dos 211 acertos, 184 ocorreram nas 360 perguntas binárias. Em 180 perguntas a regra encontrou o mesmo enunciado e formato no treino. Nas outras 900, usou a resposta mais frequente do formato. [Contagens por tipo e formato](question-prior-confirmation-v1.json)
+
+Execute `python -m src.evaluation.question_prior --confirmation` para reproduzir o controle. Após a inferência dos três checkpoints de uma base, acrescente `--prefix <campanha> --model qwen` ou `--model llava` com o mesmo prefixo para comparar as respostas por gráfico.
+
+### Similaridade das representações visuais
+
+Calibramos o limiar de cada encoder no percentil 75 de 142 pares de desenvolvimento. Nos 720 pares de avaliação, 154 ficaram acima ou no limiar nos dois encoders, 56 apenas no CLIP e 51 apenas no DINOv3. Os outros 459 ficaram abaixo em ambos. Aplicando os limiares históricos de CLIP > 0,95 e DINO < 0,60 com DINOv3, nenhum dos 720 pares atendeu aos dois critérios. Todos os pares participaram da avaliação. [Sensibilidade aos limiares e contagens por atributo](representation-similarity-v1.json)

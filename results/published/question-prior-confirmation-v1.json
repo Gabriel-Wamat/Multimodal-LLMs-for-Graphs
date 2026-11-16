@@ -1,0 +1,83 @@
+{
+  "training_questions": 2475,
+  "training_graphs": 277,
+  "train_sha256": "6837511d2a5c6023fefcbbfee0f4e417ea2debfd1b6de2e1d358cd6640d2abef",
+  "development_sha256": "4bb45424c831143dd33dd53dd1ca184a2f540a2e53f646fa0110be6b1900ecb2",
+  "confirmation_sha256": "bf811665e8c9234a12bd3ebacb1847375e67a26186c1189c63d7ebfe69841e27",
+  "scorer": "primary_binary_aliases_v2",
+  "scope": "exploratory question-only control; train answer frequencies, no image features",
+  "datasets": {
+    "confirmation_v1": {
+      "correct": 211,
+      "n": 1080,
+      "accuracy": 0.19537037037037036,
+      "ci95_graph_bootstrap": [
+        0.17592592592592593,
+        0.21388888888888888
+      ],
+      "by_chart_type": {
+        "Barras": {
+          "n": 180,
+          "correct": 36,
+          "accuracy": 0.2
+        },
+        "Boxplot": {
+          "n": 180,
+          "correct": 42,
+          "accuracy": 0.23333333333333334
+        },
+        "Dispersão": {
+          "n": 180,
+          "correct": 31,
+          "accuracy": 0.17222222222222222
+        },
+        "Histograma": {
+          "n": 180,
+          "correct": 26,
+          "accuracy": 0.14444444444444443
+        },
+        "Linhas": {
+          "n": 180,
+          "correct": 28,
+          "accuracy": 0.15555555555555556
+        },
+        "Pizza": {
+          "n": 180,
+          "correct": 48,
+          "accuracy": 0.26666666666666666
+        }
+      },
+      "by_format": {
+        "ano": {
+          "n": 60,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "categoria": {
+          "n": 180,
+          "correct": 22,
+          "accuracy": 0.12222222222222222
+        },
+        "número": {
+          "n": 300,
+          "correct": 5,
+          "accuracy": 0.016666666666666666
+        },
+        "número inteiro": {
+          "n": 180,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "sim/não": {
+          "n": 360,
+          "correct": 184,
+          "accuracy": 0.5111111111111111
+        }
+      },
+      "prediction_sources": {
+        "matched_question": 180,
+        "format_fallback": 900
+      }
+    }
+  }
+}

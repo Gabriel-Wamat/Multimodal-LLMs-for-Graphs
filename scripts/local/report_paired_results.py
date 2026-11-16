@@ -1,4 +1,5 @@
 """Summarize completed paired analyses without recomputing or changing their metrics."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -20,6 +21,9 @@ def interval(record, scale=100):
     return text + (f' [{scale*ci[0]:.2f}; {scale*ci[1]:.2f}]' if ci else ' [IC indisponível]')
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--public', action='store_true', help='Export aggregate hypothesis results for the notebook')
+    args = parser.parse_args()
     lines = ['# Avaliação pareada completa — análise exploratória', '',
              '720 pares A/B por modelo, 1.440 imagens e três condições; 4.320 respostas por modelo. '
              'Acurácia por par exige ambas as respostas corretas. Intervalos de 95% reamostram famílias inteiras.', '',
@@ -28,6 +32,7 @@ def main():
              '|---|---|---:|---:|---:|']
     sources = {}
     analyses = {}
+    costs = {}
     for model in ['llava', 'qwen']:
         folder = ROOT / 'results' / ('paired-mitigations-full-v1-' + model)
         complete = read(folder/'complete.json')
@@ -40,6 +45,7 @@ def main():
         analyses[model] = hypothesis
         sources[model] = {name:digest(folder/name) for name in ['run.json','complete.json','scored/metrics.json','scored/hypotheses.json','predictions.jsonl']}
         metrics = read(folder/'scored/metrics.json')
+        costs[model] = metrics['costs']
         for condition, value in metrics['metrics'].items():
             lines.append(f"| {model} | {condition} | {100*value['question_accuracy']:.2f} | {interval(value['paired_accuracy'])} | {value['invalid_responses']} |")
     lines += ['', '## H2 — alterações amplas menos difíceis que sutis', '',
@@ -79,6 +85,30 @@ def main():
     out.mkdir(exist_ok=True)
     (out/'REPORT.md').write_text('\n'.join(lines)+'\n')
     (out/'sources.json').write_text(json.dumps(sources,indent=2)+'\n')
+    if args.public:
+        public = {}
+        for model, hypothesis in analyses.items():
+            public[model] = {
+                'sources': sources[model],
+                'costs': costs[model],
+                'H2_and_similarity_error': {
+                    condition: {'H2': value['H2'], 'spearman': value['similarity_error']['all']}
+                    for condition, value in hypothesis['H2_and_similarity_error'].items()
+                },
+                'H3': {
+                    condition: {
+                        'paired_delta': value['paired_delta'],
+                        'multiplicity': value['multiplicity'],
+                        'mcnemar': {
+                            group: {key: record[key] for key in ('lost', 'gained', 'n', 'p_exact_two_sided')}
+                            for group, record in value['mcnemar_by_attribute_intensity'].items()
+                        },
+                    } for condition, value in hypothesis['H3'].items()
+                },
+            }
+        target = ROOT / 'results/published/paired-hypotheses-v1.json'
+        target.parent.mkdir(exist_ok=True)
+        target.write_text(json.dumps(public, ensure_ascii=False, indent=2) + '\n')
     print(out/'REPORT.md')
 
 if __name__ == '__main__':

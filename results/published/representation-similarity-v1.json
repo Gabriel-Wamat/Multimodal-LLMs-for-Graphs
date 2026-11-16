@@ -1,0 +1,305 @@
+{
+  "pairs": 720,
+  "all_pairs_retained": true,
+  "sensitivity": {
+    "0.5": {
+      "thresholds": {
+        "clip": 0.999489426612854,
+        "dinov3": 0.9986627995967865
+      },
+      "counts": {
+        "high_both": 286,
+        "high_dinov3_only": 78,
+        "high_clip_only": 61,
+        "low_both": 295
+      },
+      "by_stratum": {
+        "attribute": {
+          "bar_height": {
+            "high_both": 90,
+            "high_dinov3_only": 17,
+            "high_clip_only": 7,
+            "low_both": 6
+          },
+          "bin_count": {
+            "high_dinov3_only": 24,
+            "high_both": 88,
+            "low_both": 8
+          },
+          "last_year_order": {
+            "high_dinov3_only": 24,
+            "high_both": 69,
+            "low_both": 27
+          },
+          "median_order": {
+            "low_both": 67,
+            "high_both": 16,
+            "high_clip_only": 30,
+            "high_dinov3_only": 7
+          },
+          "slice_proportion": {
+            "low_both": 68,
+            "high_both": 23,
+            "high_clip_only": 24,
+            "high_dinov3_only": 5
+          },
+          "trend_sign": {
+            "low_both": 119,
+            "high_dinov3_only": 1
+          }
+        },
+        "intensity": {
+          "large": {
+            "high_both": 74,
+            "high_dinov3_only": 60,
+            "high_clip_only": 18,
+            "low_both": 208
+          },
+          "subtle": {
+            "high_both": 212,
+            "low_both": 87,
+            "high_clip_only": 43,
+            "high_dinov3_only": 18
+          }
+        },
+        "estilo": {
+          "cinza": {
+            "high_dinov3_only": 7,
+            "high_both": 45,
+            "high_clip_only": 17,
+            "low_both": 51
+          },
+          "clássico": {
+            "high_dinov3_only": 10,
+            "high_both": 53,
+            "low_both": 47,
+            "high_clip_only": 10
+          },
+          "editorial": {
+            "high_both": 47,
+            "high_clip_only": 9,
+            "low_both": 49,
+            "high_dinov3_only": 15
+          },
+          "escuro": {
+            "high_both": 46,
+            "high_dinov3_only": 16,
+            "low_both": 52,
+            "high_clip_only": 6
+          },
+          "minimalista": {
+            "high_clip_only": 11,
+            "high_both": 52,
+            "high_dinov3_only": 7,
+            "low_both": 50
+          },
+          "pastel": {
+            "high_dinov3_only": 23,
+            "high_both": 43,
+            "low_both": 46,
+            "high_clip_only": 8
+          }
+        }
+      }
+    },
+    "0.75": {
+      "thresholds": {
+        "clip": 0.9997393786907196,
+        "dinov3": 0.9994493424892426
+      },
+      "counts": {
+        "low_both": 459,
+        "high_both": 154,
+        "high_dinov3_only": 51,
+        "high_clip_only": 56
+      },
+      "by_stratum": {
+        "attribute": {
+          "bar_height": {
+            "low_both": 42,
+            "high_both": 62,
+            "high_dinov3_only": 9,
+            "high_clip_only": 7
+          },
+          "bin_count": {
+            "low_both": 33,
+            "high_both": 47,
+            "high_dinov3_only": 29,
+            "high_clip_only": 11
+          },
+          "last_year_order": {
+            "low_both": 56,
+            "high_dinov3_only": 12,
+            "high_both": 42,
+            "high_clip_only": 10
+          },
+          "median_order": {
+            "low_both": 110,
+            "high_clip_only": 10
+          },
+          "slice_proportion": {
+            "low_both": 98,
+            "high_clip_only": 18,
+            "high_both": 3,
+            "high_dinov3_only": 1
+          },
+          "trend_sign": {
+            "low_both": 120
+          }
+        },
+        "intensity": {
+          "large": {
+            "low_both": 297,
+            "high_dinov3_only": 34,
+            "high_clip_only": 13,
+            "high_both": 16
+          },
+          "subtle": {
+            "high_both": 138,
+            "high_dinov3_only": 17,
+            "low_both": 162,
+            "high_clip_only": 43
+          }
+        },
+        "estilo": {
+          "cinza": {
+            "low_both": 77,
+            "high_both": 26,
+            "high_clip_only": 15,
+            "high_dinov3_only": 2
+          },
+          "clássico": {
+            "low_both": 70,
+            "high_both": 28,
+            "high_clip_only": 12,
+            "high_dinov3_only": 10
+          },
+          "editorial": {
+            "low_both": 80,
+            "high_both": 25,
+            "high_dinov3_only": 8,
+            "high_clip_only": 7
+          },
+          "escuro": {
+            "low_both": 78,
+            "high_both": 28,
+            "high_dinov3_only": 9,
+            "high_clip_only": 5
+          },
+          "minimalista": {
+            "low_both": 76,
+            "high_both": 25,
+            "high_dinov3_only": 10,
+            "high_clip_only": 9
+          },
+          "pastel": {
+            "low_both": 78,
+            "high_both": 22,
+            "high_dinov3_only": 12,
+            "high_clip_only": 8
+          }
+        }
+      }
+    },
+    "0.9": {
+      "thresholds": {
+        "clip": 0.9998870849609375,
+        "dinov3": 0.9998623490333557
+      },
+      "counts": {
+        "low_both": 625,
+        "high_both": 55,
+        "high_dinov3_only": 16,
+        "high_clip_only": 24
+      },
+      "by_stratum": {
+        "attribute": {
+          "bar_height": {
+            "low_both": 61,
+            "high_both": 47,
+            "high_dinov3_only": 8,
+            "high_clip_only": 4
+          },
+          "bin_count": {
+            "low_both": 101,
+            "high_dinov3_only": 6,
+            "high_both": 4,
+            "high_clip_only": 9
+          },
+          "last_year_order": {
+            "low_both": 104,
+            "high_both": 4,
+            "high_clip_only": 10,
+            "high_dinov3_only": 2
+          },
+          "median_order": {
+            "low_both": 120
+          },
+          "slice_proportion": {
+            "low_both": 119,
+            "high_clip_only": 1
+          },
+          "trend_sign": {
+            "low_both": 120
+          }
+        },
+        "intensity": {
+          "large": {
+            "low_both": 360
+          },
+          "subtle": {
+            "high_both": 55,
+            "high_dinov3_only": 16,
+            "high_clip_only": 24,
+            "low_both": 265
+          }
+        },
+        "estilo": {
+          "cinza": {
+            "low_both": 102,
+            "high_both": 7,
+            "high_dinov3_only": 1,
+            "high_clip_only": 10
+          },
+          "clássico": {
+            "low_both": 103,
+            "high_both": 10,
+            "high_dinov3_only": 6,
+            "high_clip_only": 1
+          },
+          "editorial": {
+            "low_both": 105,
+            "high_both": 8,
+            "high_dinov3_only": 4,
+            "high_clip_only": 3
+          },
+          "escuro": {
+            "low_both": 103,
+            "high_both": 9,
+            "high_dinov3_only": 3,
+            "high_clip_only": 5
+          },
+          "minimalista": {
+            "low_both": 108,
+            "high_clip_only": 3,
+            "high_both": 9
+          },
+          "pastel": {
+            "low_both": 104,
+            "high_both": 12,
+            "high_dinov3_only": 2,
+            "high_clip_only": 2
+          }
+        }
+      }
+    }
+  },
+  "historical_threshold_adaptation": {
+    "clip_gt_095_and_dinov3_lt_06": 0,
+    "not_original_filter_replication": "The paper used DINOv2 ViT-L/14; this experiment uses DINOv3 ViT-B/16 and fixed chart pairs.",
+    "source": "https://arxiv.org/html/2401.06209v2#S2.SS1"
+  },
+  "interpretation": "High cosine in both encoders is a candidate global-representation limitation, not proof that all visual information is absent.",
+  "scores_sha256": "dcc30f9b0d9aef61293dce2f5cce953c86b705a9443c1dd265ffcfcf57d96a0d",
+  "analysis_source_sha256": "71e223474943ede796252ae2b726e53beb557c8e0792e810ee62dedd4d33d99e"
+}

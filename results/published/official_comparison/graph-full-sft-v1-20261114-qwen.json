@@ -1,0 +1,214 @@
+{
+  "dataset": "pilot50_v1",
+  "prefix": "graph-full-sft-v1-20261114",
+  "model": "qwen",
+  "questions": 3173,
+  "scorer": "primary_binary_aliases_v2",
+  "baseline_correct": 311,
+  "baseline_by_chart_type": {
+    "Barras": {
+      "n": 540,
+      "correct": 36,
+      "accuracy": 0.06666666666666667
+    },
+    "Boxplot": {
+      "n": 540,
+      "correct": 37,
+      "accuracy": 0.06851851851851852
+    },
+    "Dispersão": {
+      "n": 540,
+      "correct": 65,
+      "accuracy": 0.12037037037037036
+    },
+    "Histograma": {
+      "n": 473,
+      "correct": 43,
+      "accuracy": 0.09090909090909091
+    },
+    "Linhas": {
+      "n": 540,
+      "correct": 50,
+      "accuracy": 0.09259259259259259
+    },
+    "Pizza": {
+      "n": 540,
+      "correct": 80,
+      "accuracy": 0.14814814814814814
+    }
+  },
+  "baseline_predictions_sha256": "b7ec8da7ba126f302c424b0df7ab8369c775cfbc9ffc09c689c84b828fd9fc06",
+  "pilot_sha256": "e095eaeade341f00f704212312d5dac7b9d6720347595a342ff228327f873578",
+  "family_split_sha256": "560eead40f6c5f34660ad5dd1b1f90cf6ab037648a8e71843954b3658df36e1c",
+  "analysis_sha256": "8888639247a92579931e2aea91c9c642209bf94147108c01082ce15efca2323b",
+  "arms": {
+    "clip_single": {
+      "correct": 717,
+      "by_chart_type": {
+        "Barras": {
+          "n": 540,
+          "correct": 83,
+          "accuracy": 0.1537037037037037
+        },
+        "Boxplot": {
+          "n": 540,
+          "correct": 158,
+          "accuracy": 0.29259259259259257
+        },
+        "Dispersão": {
+          "n": 540,
+          "correct": 177,
+          "accuracy": 0.3277777777777778
+        },
+        "Histograma": {
+          "n": 473,
+          "correct": 85,
+          "accuracy": 0.17970401691331925
+        },
+        "Linhas": {
+          "n": 540,
+          "correct": 122,
+          "accuracy": 0.22592592592592592
+        },
+        "Pizza": {
+          "n": 540,
+          "correct": 92,
+          "accuracy": 0.17037037037037037
+        }
+      },
+      "predictions_sha256": "c8055ce3dd66ccde6b0418b7d5a20cfe0ad7273d7366f2d9372e423768af704d",
+      "adapted_only": 643,
+      "official_only": 237,
+      "both_correct": 74,
+      "both_wrong": 2219,
+      "paired_family_difference": {
+        "estimate": 0.12795461708162623,
+        "ci95": [
+          0.11079106143736499,
+          0.14525619667651812
+        ],
+        "families": 355,
+        "unit": "source similarity family",
+        "exploratory": true,
+        "questions": 3173,
+        "coefficients": {
+          "official": -1,
+          "adapted": 1
+        },
+        "percentage_points": 12.795461708162623
+      }
+    },
+    "clip_double": {
+      "correct": 772,
+      "by_chart_type": {
+        "Barras": {
+          "n": 540,
+          "correct": 80,
+          "accuracy": 0.14814814814814814
+        },
+        "Boxplot": {
+          "n": 540,
+          "correct": 151,
+          "accuracy": 0.2796296296296296
+        },
+        "Dispersão": {
+          "n": 540,
+          "correct": 190,
+          "accuracy": 0.35185185185185186
+        },
+        "Histograma": {
+          "n": 473,
+          "correct": 82,
+          "accuracy": 0.1733615221987315
+        },
+        "Linhas": {
+          "n": 540,
+          "correct": 140,
+          "accuracy": 0.25925925925925924
+        },
+        "Pizza": {
+          "n": 540,
+          "correct": 129,
+          "accuracy": 0.2388888888888889
+        }
+      },
+      "predictions_sha256": "88ad3f5bef68155554dd4237687f95db3ffdb8317cc41cfab12209392ee460d4",
+      "adapted_only": 541,
+      "official_only": 80,
+      "both_correct": 231,
+      "both_wrong": 2321,
+      "paired_family_difference": {
+        "estimate": 0.1452883706271667,
+        "ci95": [
+          0.1310082073682156,
+          0.1586182360222705
+        ],
+        "families": 355,
+        "unit": "source similarity family",
+        "exploratory": true,
+        "questions": 3173,
+        "coefficients": {
+          "official": -1,
+          "adapted": 1
+        },
+        "percentage_points": 14.52883706271667
+      }
+    },
+    "clip_dino": {
+      "correct": 765,
+      "by_chart_type": {
+        "Barras": {
+          "n": 540,
+          "correct": 77,
+          "accuracy": 0.1425925925925926
+        },
+        "Boxplot": {
+          "n": 540,
+          "correct": 140,
+          "accuracy": 0.25925925925925924
+        },
+        "Dispersão": {
+          "n": 540,
+          "correct": 182,
+          "accuracy": 0.337037037037037
+        },
+        "Histograma": {
+          "n": 473,
+          "correct": 86,
+          "accuracy": 0.18181818181818182
+        },
+        "Linhas": {
+          "n": 540,
+          "correct": 145,
+          "accuracy": 0.26851851851851855
+        },
+        "Pizza": {
+          "n": 540,
+          "correct": 135,
+          "accuracy": 0.25
+        }
+      },
+      "predictions_sha256": "843ad1d3d102bf745e883ced974ada47e96e89f3182d34c05814a0a8ead0c450",
+      "adapted_only": 541,
+      "official_only": 87,
+      "both_correct": 224,
+      "both_wrong": 2321,
+      "paired_family_difference": {
+        "estimate": 0.14308225653955248,
+        "ci95": [
+          0.12952837300947215,
+          0.15619460615198485
+        ],
+        "families": 355,
+        "unit": "source similarity family",
+        "exploratory": true,
+        "questions": 3173,
+        "coefficients": {
+          "official": -1,
+          "adapted": 1
+        },
+        "percentage_points": 14.308225653955247
+      }
+    }
+  }
+}

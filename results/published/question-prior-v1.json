@@ -1,0 +1,205 @@
+{
+  "training_questions": 2475,
+  "training_graphs": 277,
+  "train_sha256": "6837511d2a5c6023fefcbbfee0f4e417ea2debfd1b6de2e1d358cd6640d2abef",
+  "development_sha256": "4bb45424c831143dd33dd53dd1ca184a2f540a2e53f646fa0110be6b1900ecb2",
+  "pilot_sha256": "e095eaeade341f00f704212312d5dac7b9d6720347595a342ff228327f873578",
+  "scorer": "primary_binary_aliases_v2",
+  "scope": "exploratory question-only control; train answer frequencies, no image features",
+  "datasets": {
+    "development": {
+      "correct": 135,
+      "n": 632,
+      "accuracy": 0.21360759493670886,
+      "ci95_graph_bootstrap": [
+        0.19462025316455697,
+        0.23137876386687797
+      ],
+      "by_chart_type": {
+        "Barras": {
+          "n": 108,
+          "correct": 16,
+          "accuracy": 0.14814814814814814
+        },
+        "Boxplot": {
+          "n": 108,
+          "correct": 26,
+          "accuracy": 0.24074074074074073
+        },
+        "Dispersão": {
+          "n": 108,
+          "correct": 30,
+          "accuracy": 0.2777777777777778
+        },
+        "Histograma": {
+          "n": 92,
+          "correct": 21,
+          "accuracy": 0.22826086956521738
+        },
+        "Linhas": {
+          "n": 108,
+          "correct": 22,
+          "accuracy": 0.2037037037037037
+        },
+        "Pizza": {
+          "n": 108,
+          "correct": 20,
+          "accuracy": 0.18518518518518517
+        }
+      },
+      "by_format": {
+        "ano": {
+          "n": 36,
+          "correct": 3,
+          "accuracy": 0.08333333333333333
+        },
+        "categoria": {
+          "n": 66,
+          "correct": 12,
+          "accuracy": 0.18181818181818182
+        },
+        "faixa": {
+          "n": 22,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "lista": {
+          "n": 24,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "número": {
+          "n": 285,
+          "correct": 46,
+          "accuracy": 0.16140350877192983
+        },
+        "número inteiro": {
+          "n": 92,
+          "correct": 21,
+          "accuracy": 0.22826086956521738
+        },
+        "sim/não": {
+          "n": 71,
+          "correct": 36,
+          "accuracy": 0.5070422535211268
+        },
+        "sobe/cai": {
+          "n": 12,
+          "correct": 9,
+          "accuracy": 0.75
+        },
+        "sobe/cai/não muda": {
+          "n": 12,
+          "correct": 5,
+          "accuracy": 0.4166666666666667
+        },
+        "−0,9 / −0,5 / 0 / 0,5 / 0,9": {
+          "n": 12,
+          "correct": 3,
+          "accuracy": 0.25
+        }
+      },
+      "prediction_sources": {
+        "matched_question": 528,
+        "format_fallback": 104
+      }
+    },
+    "pilot50_v1": {
+      "correct": 684,
+      "n": 3173,
+      "accuracy": 0.2155688622754491,
+      "ci95_graph_bootstrap": [
+        0.20391398721695364,
+        0.22794954133516945
+      ],
+      "by_chart_type": {
+        "Barras": {
+          "n": 540,
+          "correct": 72,
+          "accuracy": 0.13333333333333333
+        },
+        "Boxplot": {
+          "n": 540,
+          "correct": 116,
+          "accuracy": 0.21481481481481482
+        },
+        "Dispersão": {
+          "n": 540,
+          "correct": 189,
+          "accuracy": 0.35
+        },
+        "Histograma": {
+          "n": 473,
+          "correct": 91,
+          "accuracy": 0.19238900634249473
+        },
+        "Linhas": {
+          "n": 540,
+          "correct": 86,
+          "accuracy": 0.15925925925925927
+        },
+        "Pizza": {
+          "n": 540,
+          "correct": 130,
+          "accuracy": 0.24074074074074073
+        }
+      },
+      "by_format": {
+        "ano": {
+          "n": 180,
+          "correct": 24,
+          "accuracy": 0.13333333333333333
+        },
+        "categoria": {
+          "n": 321,
+          "correct": 61,
+          "accuracy": 0.19003115264797507
+        },
+        "faixa": {
+          "n": 120,
+          "correct": 3,
+          "accuracy": 0.025
+        },
+        "lista": {
+          "n": 120,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "número": {
+          "n": 1440,
+          "correct": 236,
+          "accuracy": 0.1638888888888889
+        },
+        "número inteiro": {
+          "n": 452,
+          "correct": 103,
+          "accuracy": 0.22787610619469026
+        },
+        "sim/não": {
+          "n": 360,
+          "correct": 201,
+          "accuracy": 0.5583333333333333
+        },
+        "sobe/cai": {
+          "n": 60,
+          "correct": 24,
+          "accuracy": 0.4
+        },
+        "sobe/cai/não muda": {
+          "n": 60,
+          "correct": 24,
+          "accuracy": 0.4
+        },
+        "−0,9 / −0,5 / 0 / 0,5 / 0,9": {
+          "n": 60,
+          "correct": 8,
+          "accuracy": 0.13333333333333333
+        }
+      },
+      "prediction_sources": {
+        "format_fallback": 566,
+        "matched_question": 2607
+      }
+    }
+  }
+}
