@@ -123,7 +123,7 @@ O piloto usa 360 gráficos e as mesmas 3.173 perguntas em cada configuração. A
 |---|---:|---:|---:|
 | LLaVA-1.5-7B nativo | 8,89% | — | — |
 | LLaVA-1.5-7B nativo duplicado | 9,90% | — | — |
-| LLaVA-1.5-7B, CLIP único externo | — | — | Pendente |
+| LLaVA-1.5-7B, CLIP único externo | — | — | 24,52% (778) |
 | LLaVA-1.5-7B, CLIP duplicado | 9,90% | 27,92% (886) | Pendente |
 | LLaVA-1.5-7B, CLIP + DINOv3 | 0,00% | 24,27% (770) | Pendente |
 | Qwen2-VL-2B, CLIP único | — | — | 22,60% (717) |
